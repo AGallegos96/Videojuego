@@ -17,6 +17,10 @@ namespace XNAVideoJuego
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //Instancias de Puntajes
+        SpriteFont puntajeFuente;
+        int score;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -24,21 +28,15 @@ namespace XNAVideoJuego
         }
 
 
-        protected override void Initialize()
-        {
-           
-            base.Initialize();
-        }
-
-
         protected override void LoadContent()
         {
-            
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            
-        }
+            //Carga fuente de puntaje
+            puntajeFuente = Content.Load<SpriteFont>("Fuentes/Score");
 
+
+        }
         
         protected override void UnloadContent()
         {
@@ -47,19 +45,24 @@ namespace XNAVideoJuego
 
         protected override void Update(GameTime gameTime)
         {
-            
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
-            
 
             base.Update(gameTime);
         }
 
-       
+
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
+
+
+            spriteBatch.Begin();
+
+
+            //Dibuja Puntaje
+            spriteBatch.DrawString(puntajeFuente, ("Puntaje: " + score.ToString()), new Vector2(640, 0), Color.Black);
+
+
+            spriteBatch.End();
 
 
             base.Draw(gameTime);
