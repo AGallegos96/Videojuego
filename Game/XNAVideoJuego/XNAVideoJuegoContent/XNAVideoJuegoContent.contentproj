@@ -30,13 +30,6 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Personaje\imagen.png">
-      <Name>imagen</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Escenarios\01_Valle.png">
       <Name>01_Valle</Name>
       <Importer>TextureImporter</Importer>
@@ -140,6 +133,124 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Objetos\03_Playa\" />
+    <Folder Include="Personajes\Sombra\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Personajes\Dragón\ataque_abajo.png">
+      <Name>ataque_abajo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Dragón\ataque_derecha.png">
+      <Name>ataque_derecha</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Dragón\ataque_izquierda.png">
+      <Name>ataque_izquierda</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Erizo\Movimiento_Derecha.png">
+      <Name>Movimiento_Derecha</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Erizo\Movimiento_Izquierda.png">
+      <Name>Movimiento_Izquierda</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Leñador\Derecha\corriendo.png">
+      <Name>corriendo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Leñador\Derecha\muerto.png">
+      <Name>muerto</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Leñador\Derecha\parado.png">
+      <Name>parado</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Leñador\Izquierda\corriendo.png">
+      <Name>corriendo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Leñador\Izquierda\muerto.png">
+      <Name>muerto</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Leñador\Izquierda\parado.png">
+      <Name>parado</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Derecha\atacando.png">
+      <Name>atacando</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Derecha\caminando.png">
+      <Name>caminando</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Derecha\corriendo.png">
+      <Name>corriendo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Derecha\IDLE.png">
+      <Name>IDLE</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Derecha\muerto.png">
+      <Name>muerto</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Derecha\saltando.png">
+      <Name>saltando</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Izquierda\atacando.png">
+      <Name>atacando</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Izquierda\caminando.png">
+      <Name>caminando</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Izquierda\corriendo.png">
+      <Name>corriendo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Izquierda\IDLE.png">
+      <Name>IDLE</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Izquierda\muerto.png">
+      <Name>muerto</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Personajes\Mago\Izquierda\saltando.png">
+      <Name>saltando</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
