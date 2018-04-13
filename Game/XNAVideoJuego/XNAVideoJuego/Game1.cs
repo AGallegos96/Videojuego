@@ -20,10 +20,9 @@ namespace XNAVideoJuego
         //Instancias de Puntajes
         SpriteFont puntajeFuente;
         int score;
-
-        #region Variables De Enemigo
-        Texture2D texturaMagma;
-        Enemigo enemigo;
+        
+        #region Variables De Enemigos
+        EnemigosLista enemigos;
         #endregion
 
         public Game1()
@@ -35,7 +34,8 @@ namespace XNAVideoJuego
         protected override void Initialize()
         {
             //Inicializando Enemigo
-            enemigo = new Enemigo();
+            enemigos = new EnemigosLista();
+            enemigos.Initialize(graphics);
 
             base.Initialize();
         }
@@ -47,10 +47,8 @@ namespace XNAVideoJuego
             //Carga fuente de puntaje
             puntajeFuente = Content.Load<SpriteFont>("Fuentes/Score");
 
-            //Cargando imagen Magma
-            texturaMagma = Content.Load<Texture2D>("Objetos/02_Volcan/magma");
-            enemigo.Initialize(graphics, texturaMagma);
-
+            //Carga textura enemigos
+            enemigos.LoadContent(Content.Load<Texture2D>("Objetos/02_Volcan/magma"));
         }
         
         protected override void UnloadContent()
@@ -60,7 +58,8 @@ namespace XNAVideoJuego
 
         protected override void Update(GameTime gameTime)
         {
-            enemigo.Update(gameTime);
+            //Invoca a Enemigos
+            enemigos.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -73,8 +72,9 @@ namespace XNAVideoJuego
 
             spriteBatch.Begin();
 
-            //Dibuja Enemigo
-            enemigo.Draw(spriteBatch);
+            //Dibuja Enemigos
+            enemigos.Draw(spriteBatch);
+
             //Dibuja Puntaje
             spriteBatch.DrawString(puntajeFuente, ("Puntaje: " + score.ToString()), new Vector2(640, 0), Color.Black);
 

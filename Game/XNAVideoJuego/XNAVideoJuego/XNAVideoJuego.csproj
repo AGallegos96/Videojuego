@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Escenario2\Enemigo.cs" />
+    <Compile Include="Escenario2\EnemigosLista.cs" />
     <Compile Include="Escenario2\Escenario.cs" />
     <Compile Include="Escenario2\Personaje.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
