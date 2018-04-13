@@ -73,7 +73,7 @@ namespace XNAVideoJuego
                 posicion.X = graphics.GraphicsDevice.Viewport.Width + anchoFrame;
             }*/
 
-            posicion.X -= rnd.Next(1, 5);
+            posicion.X -= rnd.Next(1, 4);
             
             rectOrigen = new Rectangle(anchoFrame*frameActual, 0, anchoFrame, altoFrame);
             rectDestino = new Rectangle((int)posicion.X, (int)posicion.Y, anchoFrame, altoFrame);

@@ -33,7 +33,7 @@ namespace XNAVideoJuego
 
         public void Update(GameTime gameTime)
         {
-            int tiempoEspera = rnd.Next(1, 9);
+            int tiempoEspera = rnd.Next(2, 9);
             tiempoEnemigos += (float)gameTime.ElapsedGameTime.TotalSeconds;
             while (tiempoEnemigos > tiempoEspera)
             {
