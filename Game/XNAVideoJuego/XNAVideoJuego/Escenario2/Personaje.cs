@@ -74,7 +74,8 @@ namespace XNAVideoJuego
                 else { capa++; }
                 paso = 0;
             }
-            
+            cuadrado2 = new Rectangle(50 * capa, 0, 50, 50);
         }
+
     }
 }
