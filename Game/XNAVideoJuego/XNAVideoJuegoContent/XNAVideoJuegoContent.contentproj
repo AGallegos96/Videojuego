@@ -86,6 +86,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Objetos\02_Volcan\cajas.png">
+      <Name>cajas</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Objetos\02_Volcan\magma.png">
       <Name>magma</Name>
       <Importer>TextureImporter</Importer>
