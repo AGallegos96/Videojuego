@@ -18,6 +18,11 @@ namespace XNAVideoJuego
         private GraphicsDeviceManager graphics;
         private Random rnd = new Random();
 
+        public List<Enemigo> Enemigos
+        {
+            get { return enemigos; }
+        }
+
         public void Initialize(GraphicsDeviceManager graphics)
         {
             this.graphics = graphics;
