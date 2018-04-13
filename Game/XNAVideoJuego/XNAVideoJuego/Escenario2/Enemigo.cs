@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace XNAVideoJuego.Escenario1
+namespace XNAVideoJuego
 {
     class Enemigo
     {

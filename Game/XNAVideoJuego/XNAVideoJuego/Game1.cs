@@ -23,7 +23,7 @@ namespace XNAVideoJuego
 
         #region Variables De Enemigo
         Texture2D texturaMagma;
-        Escenario1.Enemigo enemigo;
+        Enemigo enemigo;
         #endregion
 
         public Game1()
@@ -35,7 +35,7 @@ namespace XNAVideoJuego
         protected override void Initialize()
         {
             //Inicializando Enemigo
-            enemigo = new Escenario1.Enemigo();
+            enemigo = new Enemigo();
 
             base.Initialize();
         }
