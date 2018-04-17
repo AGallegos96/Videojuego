@@ -46,7 +46,7 @@ namespace XNAVideoJuego
             frameActual = 0;
             paso = 0;
             retraso = 80f;
-            posicion = new Vector2((graphics.GraphicsDevice.Viewport.Width + anchoFrame), 412);
+            posicion = new Vector2((graphics.GraphicsDevice.Viewport.Width + anchoFrame), 410);
             rectOrigen = new Rectangle();
             rectDestino = new Rectangle();
 
@@ -90,7 +90,7 @@ namespace XNAVideoJuego
                 case 0:
                     {
                         posicion.X -= rnd.Next(1, 4);
-                        posicion.Y = 412;
+                        posicion.Y = 410;
                     }
                     break;
                 case 1:

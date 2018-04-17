@@ -21,6 +21,10 @@ namespace XNAVideoJuego
         SpriteFont puntajeFuente;
         int score;
 
+        //Instancia de Tiempo
+        SpriteFont tiempoFuente;
+        int tiempo;
+
         //escenario
         Escenario escenario;
         Rectangle es, cu;
@@ -53,6 +57,9 @@ namespace XNAVideoJuego
             //Carga fuente de puntaje
             puntajeFuente = Content.Load<SpriteFont>("Fuentes/Score");
 
+            //Carga fuente de tiempo
+            tiempoFuente = Content.Load<SpriteFont>("Fuentes/Tiempo");
+
             //Carga textura enemigos
             enemigos.LoadContent(Content.Load<Texture2D>("Objetos/02_Volcan/magma"));
             es = new Rectangle(0, 0, 800, 480);
@@ -70,7 +77,7 @@ namespace XNAVideoJuego
         protected override void Update(GameTime gameTime)
         {
             //Invoca a Enemigos
-            score = (int)gameTime.TotalGameTime.TotalSeconds;
+            tiempo = (int)gameTime.TotalGameTime.TotalSeconds;
             enemigos.Update(gameTime);
             escenario.Update(gameTime);
             base.Update(gameTime);
@@ -90,8 +97,9 @@ namespace XNAVideoJuego
 
             //Dibuja Puntaje
             spriteBatch.DrawString(puntajeFuente, ("Puntaje: " + score.ToString()), new Vector2(640, 0), Color.Black);
+            //Dibuja Tiempo
+            spriteBatch.DrawString(puntajeFuente, (" Tiempo: " + tiempo.ToString()), new Vector2(640, 20), Color.Black);
 
-            
             spriteBatch.End();
 
 
