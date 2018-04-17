@@ -20,7 +20,11 @@ namespace XNAVideoJuego
         //Instancias de Puntajes
         SpriteFont puntajeFuente;
         int score;
-        
+
+        //Instancias de Tiempos
+        SpriteFont tiempoFuente;
+        int tiempo;
+
         #region Variables De Enemigos
         EnemigosLista enemigos;
         #endregion
@@ -59,6 +63,7 @@ namespace XNAVideoJuego
         protected override void Update(GameTime gameTime)
         {
             //Invoca a Enemigos
+            score = (int)gameTime.TotalGameTime.TotalSeconds;
             enemigos.Update(gameTime);
 
             base.Update(gameTime);
@@ -77,7 +82,8 @@ namespace XNAVideoJuego
 
             //Dibuja Puntaje
             spriteBatch.DrawString(puntajeFuente, ("Puntaje: " + score.ToString()), new Vector2(640, 0), Color.Black);
-
+            //Dibuja Tiempo Transcurrido
+            spriteBatch.DrawString(puntajeFuente, (" Tiempo: " + score.ToString()), new Vector2(640, 20), Color.Black);
 
             spriteBatch.End();
 

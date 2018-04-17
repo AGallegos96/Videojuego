@@ -17,7 +17,6 @@ namespace XNAVideoJuego
         private Texture2D magmaTextura;
         private GraphicsDeviceManager graphics;
         private Random rnd = new Random();
-
         public List<Enemigo> Enemigos
         {
             get { return enemigos; }
@@ -40,17 +39,30 @@ namespace XNAVideoJuego
         {
             int tiempoEspera = rnd.Next(2, 9);
             tiempoEnemigos += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            while (tiempoEnemigos > tiempoEspera)
+            if (tiempoEnemigos > tiempoEspera)
             {
                 CrearEnemigo();
                 cantidadEnemigos++;
                 tiempoEnemigos = 0;
- 
             }
-            foreach (Enemigo enemigo in enemigos)
+
+            if ((float)gameTime.TotalGameTime.TotalSeconds<60)
             {
-                enemigo.Update(gameTime);
+                foreach (Enemigo enemigo in enemigos)
+                {
+
+                    enemigo.Update(gameTime);
+                }
             }
+            else
+            {
+                foreach (Enemigo enemigo in enemigos)
+                {
+
+                    enemigo.Update(gameTime,1);
+                }
+            }
+
         }
 
         public void CrearEnemigo()
