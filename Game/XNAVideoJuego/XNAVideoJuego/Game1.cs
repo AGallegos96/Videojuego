@@ -83,6 +83,7 @@ namespace XNAVideoJuego
 
 
             spriteBatch.Begin();
+            escenario.Draw(spriteBatch);
 
             //Dibuja Enemigos
             enemigos.Draw(spriteBatch);
@@ -90,7 +91,7 @@ namespace XNAVideoJuego
             //Dibuja Puntaje
             spriteBatch.DrawString(puntajeFuente, ("Puntaje: " + score.ToString()), new Vector2(640, 0), Color.Black);
 
-
+            
             spriteBatch.End();
 
 
