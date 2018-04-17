@@ -20,7 +20,13 @@ namespace XNAVideoJuego
         //Instancias de Puntajes
         SpriteFont puntajeFuente;
         int score;
-        
+
+        //escenario
+        Escenario escenario;
+        Rectangle es, cu;
+        int capa = 0; float paso, retraso = 20;
+        int x = 0, y = 0;
+
         #region Variables De Enemigos
         EnemigosLista enemigos;
         #endregion
