@@ -21,6 +21,8 @@ namespace XNAVideoJuego
         private int cantidadFrames;
         private int frameActual;
         private float paso, retraso;
+        private int alturaMaxima;
+        private bool bandera;
 
         public Vector2 Posicion
         {
@@ -44,10 +46,12 @@ namespace XNAVideoJuego
             frameActual = 0;
             paso = 0;
             retraso = 80f;
-            posicion = new Vector2((graphics.GraphicsDevice.Viewport.Width + anchoFrame), 412);
+            posicion = new Vector2((graphics.GraphicsDevice.Viewport.Width + anchoFrame), 410);
             rectOrigen = new Rectangle();
             rectDestino = new Rectangle();
 
+            alturaMaxima = 355;
+            bandera = false;
         }
 
         public void LoadContent(Texture2D magmaTextura)
@@ -55,7 +59,7 @@ namespace XNAVideoJuego
             this.magmaTextura = magmaTextura;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, int idMovimiento = 0)
         {
             paso += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (paso > retraso)
@@ -68,13 +72,8 @@ namespace XNAVideoJuego
                 paso = 0;
             }
 
-            /*if (posicion.X<-anchoFrame)
-            {
-                posicion.X = graphics.GraphicsDevice.Viewport.Width + anchoFrame;
-            }*/
+            Movimientos(idMovimiento);
 
-            posicion.X -= rnd.Next(1, 4);
-            
             rectOrigen = new Rectangle(anchoFrame*frameActual, 0, anchoFrame, altoFrame);
             rectDestino = new Rectangle((int)posicion.X, (int)posicion.Y, anchoFrame, altoFrame);
         }
@@ -82,6 +81,40 @@ namespace XNAVideoJuego
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(magmaTextura, rectDestino, rectOrigen, Color.White);
+        }
+
+        private void Movimientos(int idMovimiento = 0)
+        {
+            switch (idMovimiento)
+            {
+                case 0:
+                    {
+                        posicion.X -= rnd.Next(1, 4);
+                        posicion.Y = 410;
+                    }
+                    break;
+                case 1:
+                    {
+                        if (bandera == false)
+                        {
+                            posicion.Y--;
+                        }
+                        else
+                        {
+                            posicion.Y++;
+                        }
+                        if (posicion.Y==alturaMaxima)
+                        {
+                            bandera = true;
+                        }
+                        if (posicion.Y==412)
+                        {
+                            bandera = false;
+                        }
+                        posicion.X--;
+                    }
+                    break;
+            }
         }
 
     }
