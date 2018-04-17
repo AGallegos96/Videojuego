@@ -16,12 +16,13 @@ namespace XNAVideoJuego
     {
 
         Texture2D mago;
-        public Rectangle cuadrado, cuadrado2;
+        public Rectangle cuadrado, cuadrado2, cuadrado3;
         int x = 52, y = 444;
         public Vector2 posicion = new Vector2(0, 400);
         private Vector2 velocidad;
         private bool salto = false;
-        float paso = 0; int capa = 0; float retraso = 20;
+        float paso = 0; int capa = 0; float retraso =300;
+        GameTime gametime;
 
         public Personaje(Texture2D mago, Rectangle c, int x, int y)
         {
@@ -29,46 +30,69 @@ namespace XNAVideoJuego
             this.cuadrado = c;
             this.x = x;
             this.y = y;
-            cuadrado = new Rectangle(x, y, 50, 51);
+            cuadrado = new Rectangle(x , y, 50, 51);
 
         }
+        /*   public Vector2 Posicion
+           {
+               get { return posicion; }
+           }
 
-        public void Load(Texture2D mago)
+           public void Load(ContentManager contentmanager)
+           {
+               mago = contentmanager.Load<Texture2D>("Personajes/Mago/Derecha/caminando");
+           }
+
+
+           public void movimientos(GameTime gametime)
+           {
+               if (Keyboard.GetState().IsKeyDown(Keys.D))
+                   velocidad.X = (float)gametime.ElapsedGameTime.TotalMilliseconds / 4;
+               else if (Keyboard.GetState().IsKeyDown(Keys.A))
+                   velocidad.X = -(float)gametime.ElapsedGameTime.TotalMilliseconds / 4;
+               else velocidad.X = 0f;
+
+               if (Keyboard.GetState().IsKeyDown(Keys.Space) && salto == false)
+               {
+                   posicion.Y -= 5f;
+                   velocidad.Y = -11f;
+                   salto = true;
+               }
+
+           }
+
+           public void update(GameTime gametime)
+           {
+
+               posicion += velocidad;
+               cuadrado = new Rectangle((int)posicion.X, (int)posicion.Y, 50, 51);
+               movimientos(gametime);
+               if (velocidad.Y < 10) velocidad.Y += 0.4f;
+
+           }
+           */
+        public void movimientos(int p)
         {
-            this.mago = mago;
-
-        } 
-
-        public void movimientos(GameTime gametime)
-        {
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                velocidad.X = (float)gametime.ElapsedGameTime.TotalMilliseconds / 4;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                velocidad.X = -(float)gametime.ElapsedGameTime.TotalMilliseconds / 4;
-            else velocidad.X = 0f;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Up) && salto == false)
+            switch (p)
             {
-                posicion.Y -= 5f;
-                velocidad.Y = -11f;
-                salto = true;
+                case 1: x -= 2; break;
+                case 2: x += 2; break;
+                case 3: y -= 2; break;
+                case 4: y += 2; break;
             }
-
         }
 
-        public void update(GameTime gametime)
+        public void Update(int m,GameTime gametime)
         {
-            movimientos(gametime);
-            posicion += velocidad;
-            cuadrado = new Rectangle((int)posicion.X, (int)posicion.Y, 50, 52);
-            if (velocidad.Y < 10) velocidad.Y += 0.4f;
-
+            this.gametime = gametime;
+            movimientos(m);
         }
 
         public void drawMagoVivo(SpriteBatch sprite)
         {
             cuadrado = new Rectangle(x, y, 50, 51);
-            sprite.Draw(mago, cuadrado, Color.White);
+            Animaciones();
+            sprite.Draw(mago, cuadrado,cuadrado2, Color.White);
         }
 
         public void drawMagoMuerto(SpriteBatch sprite)
@@ -86,7 +110,7 @@ namespace XNAVideoJuego
                 return false;
         }    
        
-        public void Animaciones(int n, GameTime gametime)
+        public void Animaciones()
         {
             paso += (float)gametime.ElapsedGameTime.TotalMilliseconds;
             if(paso >= retraso && paso >0)
@@ -100,3 +124,4 @@ namespace XNAVideoJuego
 
     }
 }
+ 

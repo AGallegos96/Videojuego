@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using XNAVideoJuego.Escenario2;
 
 namespace XNAVideoJuego
 {
@@ -23,12 +24,14 @@ namespace XNAVideoJuego
 
         //escenario
         Escenario escenario;
-        int capa = 0; float paso = 0, retraso = 20;
-        int x = 0, y = 0;        Rectangle es, cu;
+        Rectangle es, cu;
 
         //Instancia de Tiempo
         SpriteFont tiempoFuente;
         int tiempo;
+        Personaje mago;
+        Rectangle r1,r2;
+
         #region Variables De Enemigos
         EnemigosLista enemigos;
         #endregion
@@ -42,6 +45,7 @@ namespace XNAVideoJuego
         protected override void Initialize()
         {
             //Inicializando Enemigo
+            this.IsMouseVisible = true;
             enemigos = new EnemigosLista();
             enemigos.Initialize(graphics);
             
@@ -60,9 +64,16 @@ namespace XNAVideoJuego
 
             //Carga textura enemigos
             enemigos.LoadContent(Content.Load<Texture2D>("Objetos/02_Volcan/magma"));
+            //carga textura escenario
             es = new Rectangle(0, 0, 800, 480);
             cu = new Rectangle(0, 0, 2048, 480);
             escenario = new Escenario(Content.Load<Texture2D>("Escenarios/02_Volcan/01"), cu, es, 0, 0);
+            //carga textura personaje
+            r1 = new Rectangle(0, 400, 50, 51);
+            r2 = new Rectangle(0, 400, 341, 51);
+            mago = new Personaje(Content.Load<Texture2D>("Personajes/Mago/Derecha/caminando"), r1, 0, 400);
+            //Tiles.Content = Content;
+            //mago.Load(Content);
         }
 
         protected override void UnloadContent()
@@ -76,6 +87,14 @@ namespace XNAVideoJuego
             tiempo = (int)gameTime.TotalGameTime.TotalSeconds;
             escenario.Update(gameTime);
             enemigos.Update(gameTime);
+            //
+            int p = 0;
+            if (Keyboard.GetState().IsKeyDown(Keys.Left)) p = 1;
+            if (Keyboard.GetState().IsKeyDown(Keys.Right)) p = 2;
+            if (Keyboard.GetState().IsKeyDown(Keys.Up)) p = 3;
+            if (Keyboard.GetState().IsKeyDown(Keys.Down)) p = 4;
+            mago.Update(p, gameTime);
+            mago.Animaciones();
 
             base.Update(gameTime);
         }
@@ -97,6 +116,9 @@ namespace XNAVideoJuego
 
             //Dibuja Puntaje
             spriteBatch.DrawString(tiempoFuente, (" Tiempo: " + tiempo.ToString()), new Vector2(640, 20), Color.Black);
+
+            //dibuja personaje
+            mago.drawMagoVivo(spriteBatch);
 
             spriteBatch.End();
 
