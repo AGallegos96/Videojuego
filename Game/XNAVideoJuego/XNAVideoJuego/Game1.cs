@@ -20,7 +20,9 @@ namespace XNAVideoJuego
         //Instancias de Puntajes
         SpriteFont puntajeFuente;
         int score;
-        
+
+        Personaje mago;
+
         #region Variables De Enemigos
         EnemigosLista enemigos;
         #endregion
@@ -36,7 +38,7 @@ namespace XNAVideoJuego
             //Inicializando Enemigo
             enemigos = new EnemigosLista();
             enemigos.Initialize(graphics);
-
+            
             base.Initialize();
         }
 
@@ -49,6 +51,9 @@ namespace XNAVideoJuego
 
             //Carga textura enemigos
             enemigos.LoadContent(Content.Load<Texture2D>("Objetos/02_Volcan/magma"));
+            //
+            //cargar personaje
+            mago.Load(Content.Load<Texture2D>("Pesonajes/Mago/Derecha/caminando"));
         }
         
         protected override void UnloadContent()
@@ -60,7 +65,7 @@ namespace XNAVideoJuego
         {
             //Invoca a Enemigos
             enemigos.Update(gameTime);
-
+            mago.movimientos(gameTime);
             base.Update(gameTime);
         }
 
@@ -77,8 +82,10 @@ namespace XNAVideoJuego
 
             //Dibuja Puntaje
             spriteBatch.DrawString(puntajeFuente, ("Puntaje: " + score.ToString()), new Vector2(640, 0), Color.Black);
+            //dibujar personaje
+            mago.drawMagoVivo(spriteBatch);
 
-
+            
             spriteBatch.End();
 
 
