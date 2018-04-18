@@ -36,9 +36,9 @@ namespace XNAVideoJuego
 
         //Instancia de Tiempo
         int tiempo;
-        Personaje mago;
+        Personaje mago, magomuerto;
         Rectangle r1, r2;
-
+        
         //Instancia Vida
         Vida vida;
 
@@ -86,7 +86,7 @@ namespace XNAVideoJuego
             r1 = new Rectangle(0, 400, 50, 51);
             r2 = new Rectangle(0, 400, 341, 51);
             mago = new Personaje(Content.Load<Texture2D>("Personajes/Mago/Derecha/corriendo"), r1, 0, 393,new Vector2(0,390));
-            
+            magomuerto = new Personaje(Content.Load<Texture2D>("Personajes/Mago/Derecha/muerto"), r2, 0, 393, new Vector2(0, 390));
         }
 
         protected override void UnloadContent()
@@ -144,7 +144,13 @@ namespace XNAVideoJuego
 
             //dibuja personaje
             mago.drawMagoVivo(spriteBatch);
-
+           /* foreach (Enemigo enemigo in enemigos.Enemigos)
+            {
+                mago.Coliciones(r1, enemigo.RectDestino);
+                magomuerto.drawMagoMuerto(spriteBatch);
+                
+            }*/
+          
             spriteBatch.End();
 
 

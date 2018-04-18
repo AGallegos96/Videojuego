@@ -89,7 +89,7 @@ namespace XNAVideoJuego
 
         public void drawMagoMuerto(SpriteBatch sprite)
         {
-            cuadrado = new Rectangle(x, y, 50, 51);
+            cuadrado = new Rectangle((int)posicion.X, (int)posicion.Y, 50, 51); ;
             Animaciones();
             sprite.Draw(mago, cuadrado, Color.White);
 
