@@ -18,79 +18,71 @@ namespace XNAVideoJuego
         Texture2D mago;
         public Rectangle cuadrado, cuadrado2, cuadrado3;
         int x = 52, y = 444;
-        public Vector2 posicion = new Vector2(0, 400);
+        public Vector2 posicion = new Vector2(0, 390);
         private Vector2 velocidad;
-        private bool salto = false;
+        private bool salto;
         float paso = 0; int capa = 0; float retraso =300;
         GameTime gametime;
 
-        public Personaje(Texture2D mago, Rectangle c, int x, int y)
+        public Personaje(Texture2D mago,Rectangle c, int x, int y, Vector2 p)
         {
             this.mago = mago;
-            this.cuadrado = c;
+           this.cuadrado = c;
             this.x = x;
+            posicion = p;
+            salto = true;
             this.y = y;
             cuadrado = new Rectangle(x , y, 50, 51);
 
         }
-        /*   public Vector2 Posicion
-           {
-               get { return posicion; }
-           }
+  
 
-           public void Load(ContentManager contentmanager)
+          public void movimientos()
            {
-               mago = contentmanager.Load<Texture2D>("Personajes/Mago/Derecha/caminando");
-           }
-
-
-           public void movimientos(GameTime gametime)
-           {
-               if (Keyboard.GetState().IsKeyDown(Keys.D))
-                   velocidad.X = (float)gametime.ElapsedGameTime.TotalMilliseconds / 4;
-               else if (Keyboard.GetState().IsKeyDown(Keys.A))
-                   velocidad.X = -(float)gametime.ElapsedGameTime.TotalMilliseconds / 4;
-               else velocidad.X = 0f;
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+               
+                velocidad.X = 3f;
+            else if (Keyboard.GetState().IsKeyDown(Keys.A))
+                
+                velocidad.X = -3f;
+            else velocidad.X = 0f;
 
                if (Keyboard.GetState().IsKeyDown(Keys.Space) && salto == false)
                {
-                   posicion.Y -= 5f;
-                   velocidad.Y = -11f;
+                   posicion.Y -= 11f;
+                   velocidad.Y = -4f;
                    salto = true;
                }
-
-           }
-
-           public void update(GameTime gametime)
-           {
-
-               posicion += velocidad;
-               cuadrado = new Rectangle((int)posicion.X, (int)posicion.Y, 50, 51);
-               movimientos(gametime);
-               if (velocidad.Y < 10) velocidad.Y += 0.4f;
-
-           }
-           */
-        public void movimientos(int p)
-        {
-            switch (p)
+            if(salto==true)
             {
-                case 1: x -= 2; break;
-                case 2: x += 2; break;
-                case 3: y -= 2; break;
-                case 4: y += 2; break;
+                float i = 1;
+                velocidad.Y += 0.15f * i;
             }
-        }
+            if(posicion.Y+mago.Height>=450)
+            {
+                salto = false;
+            }
 
-        public void Update(int m,GameTime gametime)
+            if(salto==false)
+            {
+                velocidad.Y = 0f;
+            }
+           }
+
+    
+        
+        public void Update(GameTime gametime)
         {
             this.gametime = gametime;
-            movimientos(m);
+            posicion += velocidad;
+            
+            movimientos();
+            
         }
 
         public void drawMagoVivo(SpriteBatch sprite)
         {
-            cuadrado = new Rectangle(x, y, 50, 51);
+            cuadrado = new Rectangle((int)posicion.X, (int)posicion.Y, 50, 51); ;
             Animaciones();
             sprite.Draw(mago, cuadrado,cuadrado2, Color.White);
         }
@@ -98,6 +90,7 @@ namespace XNAVideoJuego
         public void drawMagoMuerto(SpriteBatch sprite)
         {
             cuadrado = new Rectangle(x, y, 50, 51);
+            Animaciones();
             sprite.Draw(mago, cuadrado, Color.White);
 
         }

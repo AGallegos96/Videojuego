@@ -79,9 +79,8 @@ namespace XNAVideoJuego
             //carga textura personaje
             r1 = new Rectangle(0, 400, 50, 51);
             r2 = new Rectangle(0, 400, 341, 51);
-            mago = new Personaje(Content.Load<Texture2D>("Personajes/Mago/Derecha/caminando"), r1, 0, 400);
-            //Tiles.Content = Content;
-            //mago.Load(Content);
+            mago = new Personaje(Content.Load<Texture2D>("Personajes/Mago/Derecha/corriendo"), r1, 0, 393,new Vector2(0,390));
+            
         }
 
         protected override void UnloadContent()
@@ -96,14 +95,10 @@ namespace XNAVideoJuego
             vida.Update(gameTime);
             escenario.Update(gameTime);
             enemigos.Update(gameTime);
-            //
-            int p = 0;
-            if (Keyboard.GetState().IsKeyDown(Keys.Left)) p = 1;
-            if (Keyboard.GetState().IsKeyDown(Keys.Right)) p = 2;
-            if (Keyboard.GetState().IsKeyDown(Keys.Up)) p = 3;
-            if (Keyboard.GetState().IsKeyDown(Keys.Down)) p = 4;
-            mago.Update(p, gameTime);
-            mago.Animaciones();
+
+              //mago
+            mago.Update(gameTime);
+            
 
             base.Update(gameTime);
         }
