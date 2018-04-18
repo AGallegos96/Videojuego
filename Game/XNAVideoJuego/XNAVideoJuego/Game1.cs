@@ -30,7 +30,10 @@ namespace XNAVideoJuego
         SpriteFont tiempoFuente;
         int tiempo;
         Personaje mago;
-        Rectangle r1,r2;
+        Rectangle r1, r2;
+
+        //Instancia Vida
+        Vida vida;
 
         #region Variables De Enemigos
         EnemigosLista enemigos;
@@ -46,9 +49,11 @@ namespace XNAVideoJuego
         {
             //Inicializando Enemigo
             this.IsMouseVisible = true;
+            vida = new Vida();
+            vida.Initialize(graphics);
             enemigos = new EnemigosLista();
             enemigos.Initialize(graphics);
-            
+
             base.Initialize();
         }
 
@@ -61,6 +66,9 @@ namespace XNAVideoJuego
 
             //Carga fuente de tiempo
             tiempoFuente = Content.Load<SpriteFont>("Fuentes/Tiempo");
+
+            //Cargando texturaVidas
+            vida.VidaTextura = new List<Texture2D> { Content.Load<Texture2D>("Objetos/Vidas/3_vidas"), Content.Load<Texture2D>("Objetos/Vidas/2_vidas"), Content.Load<Texture2D>("Objetos/Vidas/1_vidas"), Content.Load<Texture2D>("Objetos/Vidas/0_vidas") };
 
             //Carga textura enemigos
             enemigos.LoadContent(Content.Load<Texture2D>("Objetos/02_Volcan/magma"));
@@ -78,13 +86,14 @@ namespace XNAVideoJuego
 
         protected override void UnloadContent()
         {
-            
+
         }
 
         protected override void Update(GameTime gameTime)
         {
             //Invoca a Enemigos
             tiempo = (int)gameTime.TotalGameTime.TotalSeconds;
+            vida.Update(gameTime);
             escenario.Update(gameTime);
             enemigos.Update(gameTime);
             //
@@ -111,10 +120,13 @@ namespace XNAVideoJuego
             //Dibuja Enemigos
             enemigos.Draw(spriteBatch);
 
+            //Dibuja Vida
+            vida.Draw(spriteBatch);
+
             //Dibuja Puntaje
             spriteBatch.DrawString(puntajeFuente, ("Puntaje: " + score.ToString()), new Vector2(640, 0), Color.Black);
 
-            //Dibuja Puntaje
+            //Dibuja Tiempo
             spriteBatch.DrawString(tiempoFuente, (" Tiempo: " + tiempo.ToString()), new Vector2(640, 20), Color.Black);
 
             //dibuja personaje
