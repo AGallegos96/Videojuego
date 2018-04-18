@@ -41,8 +41,8 @@ namespace XNAVideoJuego
             vidaTextura = new List<Texture2D>();
             ancho = 90;
             alto = 30;
-            posicion = new Vector2(5, 5);
-            rectVida = new Rectangle((int)posicion.X, (int)posicion.Y, ancho, alto);
+            posicion = new Vector2(15,5);
+            rectVida = new Rectangle(0, 0, ancho, alto);
         }
 
         public void LoadContent(List<Texture2D> vidaTextura)
