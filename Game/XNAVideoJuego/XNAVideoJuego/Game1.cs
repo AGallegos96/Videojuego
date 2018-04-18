@@ -18,8 +18,16 @@ namespace XNAVideoJuego
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //Instancias de Fuente
+        SpriteFont fuente;
+
+        //Instancias de Nivel
+        int nivelActual;
+
+        //Instancias de Gemas
+        int gemas;
+
         //Instancias de Puntajes
-        SpriteFont puntajeFuente;
         int score;
 
         //escenario
@@ -27,7 +35,6 @@ namespace XNAVideoJuego
         Rectangle es, cu;
 
         //Instancia de Tiempo
-        SpriteFont tiempoFuente;
         int tiempo;
         Personaje mago;
         Rectangle r1, r2;
@@ -49,6 +56,8 @@ namespace XNAVideoJuego
         {
             //Inicializando Enemigo
             this.IsMouseVisible = true;
+            nivelActual = 2;
+            gemas = 1;
             vida = new Vida();
             vida.Initialize(graphics);
             enemigos = new EnemigosLista();
@@ -61,11 +70,8 @@ namespace XNAVideoJuego
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //Carga fuente de puntaje
-            puntajeFuente = Content.Load<SpriteFont>("Fuentes/Score");
-
-            //Carga fuente de tiempo
-            tiempoFuente = Content.Load<SpriteFont>("Fuentes/Tiempo");
+            //Carga fuente
+            fuente = Content.Load<SpriteFont>("Fuentes/Fuente");
 
             //Cargando texturaVidas
             vida.VidaTextura = new List<Texture2D> { Content.Load<Texture2D>("Objetos/Vidas/3_vidas"), Content.Load<Texture2D>("Objetos/Vidas/2_vidas"), Content.Load<Texture2D>("Objetos/Vidas/1_vidas"), Content.Load<Texture2D>("Objetos/Vidas/0_vidas") };
@@ -115,14 +121,26 @@ namespace XNAVideoJuego
             //Dibuja Enemigos
             enemigos.Draw(spriteBatch);
 
-            //Dibuja Vida
+            //Dibuja Textura Vida
             vida.Draw(spriteBatch);
 
-            //Dibuja Puntaje
-            spriteBatch.DrawString(puntajeFuente, ("Puntaje: " + score.ToString()), new Vector2(640, 0), Color.Black);
+            //Dibuja Nombre Personaje
+            spriteBatch.DrawString(fuente, ("Abandagi"), new Vector2(352, 10), Color.Black);
+
+            //Dibuja Contador Vida
+            spriteBatch.DrawString(fuente, ("X " + vida.NumeroVidas.ToString()), new Vector2(110, 10), Color.Black);
+
+            //Dibuja Número Nivel
+            spriteBatch.DrawString(fuente, ("  Nivel: " + nivelActual.ToString()), new Vector2(650, 10), Color.Black);
 
             //Dibuja Tiempo
-            spriteBatch.DrawString(tiempoFuente, (" Tiempo: " + tiempo.ToString()), new Vector2(640, 20), Color.Black);
+            spriteBatch.DrawString(fuente, (" Tiempo: " + tiempo.ToString()), new Vector2(650, 34), Color.Black);
+
+            //Dibuja Puntaje
+            spriteBatch.DrawString(fuente, (" Puntaje: " + score.ToString()), new Vector2(10, 34), Color.Black);
+
+            //Dibuja Número Gemas
+            spriteBatch.DrawString(fuente, ("Gemas: " + gemas.ToString() + "/4"), new Vector2(340, 34), Color.Black);
 
             //dibuja personaje
             mago.drawMagoVivo(spriteBatch);
