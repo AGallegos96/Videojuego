@@ -144,12 +144,13 @@ namespace XNAVideoJuego
 
             //dibuja personaje
             mago.drawMagoVivo(spriteBatch);
-           /* foreach (Enemigo enemigo in enemigos.Enemigos)
+            foreach (Enemigo enemigo in enemigos.Enemigos)
             {
-                mago.Coliciones(r1, enemigo.RectDestino);
-                magomuerto.drawMagoMuerto(spriteBatch);
+                mago.Coliciones(r1, enemigo.RectDestino,480);
+
+                //magomuerto.drawMagoMuerto(spriteBatch);
                 
-            }*/
+            }
           
             spriteBatch.End();
 

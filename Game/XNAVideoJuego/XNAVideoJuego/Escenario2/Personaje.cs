@@ -94,13 +94,22 @@ namespace XNAVideoJuego
             sprite.Draw(mago, cuadrado, Color.White);
 
         }
-        
-        public bool Coliciones(Rectangle mago, Rectangle enemigo)
+
+        public void Coliciones(Rectangle enemigo, Rectangle mago, int ancho)
         {
-            if (mago.Intersects(enemigo))
-                return true;
-            else
-                return false;
+            
+            /*if (enemigo.Intersects(mago))
+            {
+                posicion.X = mago.X - cuadrado.Width - 2;
+            }
+            if (enemigo.Intersects(mago))
+            {
+                posicion.X = mago.X + cuadrado.Width + 2;
+            }*/
+            if (posicion.X < 0) posicion.X = 0;
+            if (posicion.X > ancho - cuadrado.Width) posicion.X = ancho - cuadrado.Width;
+            if (posicion.Y < 0) velocidad.X = 1f;
+            
         }    
        
         public void Animaciones()
