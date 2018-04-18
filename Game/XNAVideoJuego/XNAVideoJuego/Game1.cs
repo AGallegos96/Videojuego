@@ -79,8 +79,8 @@ namespace XNAVideoJuego
             //Carga textura enemigos
             enemigos.LoadContent(Content.Load<Texture2D>("Objetos/02_Volcan/magma"));
             //carga textura escenario
-            es = new Rectangle(0, 0, 800, 480);
-            cu = new Rectangle(0, 0, 2048, 480);
+            cu = new Rectangle(0, 0, 800, 480);
+            es = new Rectangle(0, 0, 2048, 480);
             escenario = new Escenario(Content.Load<Texture2D>("Escenarios/02_Volcan/01"), cu, es, 0, 0);
             //carga textura personaje
             r1 = new Rectangle(0, 400, 50, 51);
