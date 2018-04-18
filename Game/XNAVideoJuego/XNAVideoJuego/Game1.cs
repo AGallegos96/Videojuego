@@ -146,7 +146,7 @@ namespace XNAVideoJuego
             mago.drawMagoVivo(spriteBatch);
             foreach (Enemigo enemigo in enemigos.Enemigos)
             {
-                mago.Coliciones(r1, enemigo.RectDestino,640);
+                mago.Coliciones(r1, enemigo.RectDestino,800);
 
                 //magomuerto.drawMagoMuerto(spriteBatch);
                 
