@@ -61,7 +61,6 @@
     <Compile Include="Escenario2\EnemigosLista.cs" />
     <Compile Include="Escenario2\Escenario.cs" />
     <Compile Include="Escenario2\Personaje.cs" />
-    <Compile Include="Escenario2\Tiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

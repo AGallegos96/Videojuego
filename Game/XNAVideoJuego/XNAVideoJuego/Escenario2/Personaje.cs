@@ -16,7 +16,7 @@ namespace XNAVideoJuego
     {
 
         Texture2D mago;
-        public Rectangle cuadrado, cuadrado2, cuadrado3;
+        public Rectangle cuadrado, cuadrado2;
         int x = 52, y = 444;
         public Vector2 posicion = new Vector2(0, 390);
         private Vector2 velocidad;
@@ -67,8 +67,8 @@ namespace XNAVideoJuego
                }
             if(salto==true)
             {
-                float i = 1;
-                velocidad.Y += 0.15f * i;
+                // float i = 1;
+                velocidad.Y += 0.15f;// * i;
             }
             if(posicion.Y+mago.Height>=450)
             {

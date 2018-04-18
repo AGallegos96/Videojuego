@@ -30,12 +30,6 @@ namespace XNAVideoJuego
             cuadro2 = new Rectangle(0, 0, 2048, 480);
         }
 
-        public void Update()
-        {
-            paso += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (paso >= retraso) { if (capa >= 2)  capa = 0; else { capa++; x++; } paso = 0; }
-            if (x >= 2048) x = 0; cuadro = new Rectangle(x, y, 800, 480);
-        }
         public void Update(GameTime gameTime)
         {
             this.gameTime = gameTime;

@@ -50,7 +50,7 @@ namespace XNAVideoJuego
             rectOrigen = new Rectangle();
             rectDestino = new Rectangle();
 
-            alturaMaxima = 355;
+            alturaMaxima = 400;
             bandera = false;
         }
 
