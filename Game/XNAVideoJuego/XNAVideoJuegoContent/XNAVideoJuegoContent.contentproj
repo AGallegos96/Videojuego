@@ -30,7 +30,6 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Escenarios\05_Escenario_Final\" />
     <Folder Include="Objetos\03_Playa\" />
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +292,18 @@
     </Compile>
     <Compile Include="Personajes\Sombra\Izquierda\Caminando.png">
       <Name>Caminando</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Escenarios\05_Escenario_Final\01.png">
+      <Name>01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Escenarios\05_Escenario_Final\02.png">
+      <Name>02</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
