@@ -24,6 +24,18 @@ namespace XNAVideoJuego
         float paso = 0; int capa = 0; float retraso =300;
         GameTime gametime;
 
+        public Rectangle Cuadro
+        {
+            get { return cuadrado; }
+
+        }
+
+        public int X
+        {
+            get { return x; }
+
+        }
+
         public Personaje(Texture2D mago,Rectangle c, int x, int y, Vector2 p)
         {
             this.mago = mago;
@@ -35,7 +47,7 @@ namespace XNAVideoJuego
             cuadrado = new Rectangle(x , y, 50, 51);
 
         }
-  
+
 
           public void movimientos()
            {
@@ -95,17 +107,23 @@ namespace XNAVideoJuego
 
         }
 
-        public void Coliciones(Rectangle enemigo, Rectangle mago, int ancho)
+        public void Coliciones(Vida vida,Rectangle enemigo, int ancho)
         {
-            
-            /*if (enemigo.Intersects(mago))
+            if (cuadrado.Intersects(enemigo))
             {
-                posicion.X = mago.X - cuadrado.Width - 2;
+                posicion.X = X - cuadrado.Width - 2;
+                if (vida.NumeroVidas > 0)
+                {
+                    vida.NumeroVidas--;
+                }
+                else
+                {
+                    Console.WriteLine("Mago Muerto");
+                    //magomuerto.drawMagoMuerto(spriteBatch);
+                }
+
             }
-            if (enemigo.Intersects(mago))
-            {
-                posicion.X = mago.X + cuadrado.Width + 2;
-            }*/
+
             if (posicion.X < 0) posicion.X = 0;
             if (posicion.X > ancho - cuadrado.Width) posicion.X = ancho - cuadrado.Width;
             if (posicion.Y < 0) velocidad.X = 1f;

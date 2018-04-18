@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace XNAVideoJuego
 {
-    class Vida
+    public class Vida
     {
         private GraphicsDeviceManager graphics;
         private List<Texture2D> vidaTextura;

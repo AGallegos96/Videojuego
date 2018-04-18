@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace XNAVideoJuego
 {
-    class Enemigo
+    public class Enemigo
     {
         private GraphicsDeviceManager graphics;
         private Random rnd = new Random();

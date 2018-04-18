@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace XNAVideoJuego
 {
-    class EnemigosLista
+    public class EnemigosLista
     {
         private List<Enemigo> enemigos;
         private int cantidadEnemigos;
