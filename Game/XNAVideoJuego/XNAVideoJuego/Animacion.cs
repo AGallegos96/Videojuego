@@ -22,12 +22,13 @@ namespace XNAVideoJuego
         private int FrameWidth; //Ancho de una imagen
         private int FrameHeight; //Alto de una imagen
         private bool Active; //Estado de la animación
-        private bool Looping; //Repetir animación
+        private bool looping; //Repetir animación
         private Vector2 position; //Posición del sprite
 
         #region Propiedades
         public Rectangle DestinationRect { get { return destinationRect; } }
         public Vector2 Position { get { return position; } }
+        public bool Looping {get { return looping; } set { looping = value; } }
         #endregion
 
         public Animacion(Texture2D texture, Vector2 position, int frameWidth, int frameHeight, int frameCount, int frametime, Color color, bool looping)
