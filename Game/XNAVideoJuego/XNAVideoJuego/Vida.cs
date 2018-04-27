@@ -11,7 +11,6 @@ namespace XNAVideoJuego
 {
     public class Vida
     {
-        private GraphicsDeviceManager graphics;
         private List<Texture2D> vidaTextura;
         private int indiceVidaActual;
         private Rectangle rectVida;
@@ -19,25 +18,13 @@ namespace XNAVideoJuego
         private int ancho, alto;
         private Vector2 posicion;
 
-        public List<Texture2D> VidaTextura
+        #region Propiedades
+        public int NumeroVidas{get { return numeroVidas; }set { numeroVidas = value; }}
+        #endregion
+
+        public Vida(int numeroVidas)
         {
-            get { return vidaTextura; }
-            set { vidaTextura = value; }
-
-        }
-
-        public int NumeroVidas
-        {
-            get { return numeroVidas; }
-            set { numeroVidas = value; }
-
-        }
-
-
-        public void Initialize(GraphicsDeviceManager graphics)
-        {
-            this.graphics = graphics;
-            numeroVidas = 3;
+            indiceVidaActual = this.numeroVidas = numeroVidas;
             vidaTextura = new List<Texture2D>();
             ancho = 90;
             alto = 30;
@@ -45,9 +32,13 @@ namespace XNAVideoJuego
             rectVida = new Rectangle(0, 0, ancho, alto);
         }
 
-        public void LoadContent(List<Texture2D> vidaTextura)
+        public void LoadContent(ContentManager Content)
         {
-            this.vidaTextura = vidaTextura;
+            Content = new ContentManager(Content.ServiceProvider, "Content");
+            vidaTextura.Add(Content.Load<Texture2D>("Objetos/Vidas/3_vidas"));
+            vidaTextura.Add(Content.Load<Texture2D>("Objetos/Vidas/2_vidas"));
+            vidaTextura.Add(Content.Load<Texture2D>("Objetos/Vidas/1_vidas"));
+            vidaTextura.Add(Content.Load<Texture2D>("Objetos/Vidas/0_vidas"));
         }
 
         public void Update(GameTime gameTime)

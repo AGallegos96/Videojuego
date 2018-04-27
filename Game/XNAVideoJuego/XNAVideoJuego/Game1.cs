@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-
 namespace XNAVideoJuego
 {
 
@@ -17,51 +16,25 @@ namespace XNAVideoJuego
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        //Instancias de Fuente
         SpriteFont fuente;
-
-        //Instancias de Nivel
-        int nivelActual;
-
-        //Instancias de Gemas
-        int gemas;
-
-        //Instancias de Puntajes
-        int score;
-
-        //escenario
-        Escenario escenario;
-        Rectangle es, cu;
-
-        //Instancia de Tiempo
-        int tiempo;
-        Personaje mago, magomuerto;
-        Rectangle r1, r2;
-        
-        //Instancia Vida
-        Vida vida;
-
-        #region Variables De Enemigos
-        EnemigosLista enemigos;
-        #endregion
+        int nivelActual, tiempoEnJuego;
+        Mago mago;
+        Escenario1 escenario1;
+        Escenario2 escenario2;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
         }
 
         protected override void Initialize()
         {
-            //Inicializando Enemigo
             this.IsMouseVisible = true;
-            nivelActual = 2;
-            gemas = 1;
-            vida = new Vida();
-            vida.Initialize(graphics);
-            enemigos = new EnemigosLista();
-            enemigos.Initialize(graphics);
+            mago = new Mago(graphics);
+            escenario1 = new Escenario1(graphics, mago);
+            escenario2 = new Escenario2(graphics, mago);
 
             base.Initialize();
         }
@@ -69,42 +42,34 @@ namespace XNAVideoJuego
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            //Carga fuente
-            fuente = Content.Load<SpriteFont>("Fuentes/Fuente");
-
-            //Cargando texturaVidas
-            vida.VidaTextura = new List<Texture2D> { Content.Load<Texture2D>("Objetos/Vidas/3_vidas"), Content.Load<Texture2D>("Objetos/Vidas/2_vidas"), Content.Load<Texture2D>("Objetos/Vidas/1_vidas"), Content.Load<Texture2D>("Objetos/Vidas/0_vidas") };
-
-            //Carga textura enemigos
-            enemigos.LoadContent(Content.Load<Texture2D>("Objetos/02_Volcan/magma"));
-            //carga textura escenario
-            cu = new Rectangle(0, 0, 800, 480);
-            es = new Rectangle(0, 0, 2048, 480);
-            escenario = new Escenario(Content.Load<Texture2D>("Escenarios/02_Volcan/01"), cu, es, 0, 0);
-            //carga textura personaje
-            r1 = new Rectangle(0, 400, 50, 51);
-            r2 = new Rectangle(0, 400, 341, 51);
-            mago = new Personaje(Content.Load<Texture2D>("Personajes/Mago/Derecha/corriendo"), r1, 0, 393,new Vector2(0,390));
-            magomuerto = new Personaje(Content.Load<Texture2D>("Personajes/Mago/Derecha/muerto"), r2, 0, 393, new Vector2(0, 390));
+            fuente = Content.Load<SpriteFont>("Fuentes/fuenteJuego");
+            escenario1.LoadContent(Content);
+            escenario2.LoadContent(Content);
+            mago.LoadContent(Content);
         }
 
         protected override void UnloadContent()
         {
-
         }
 
         protected override void Update(GameTime gameTime)
         {
-            //Invoca a Enemigos
-            tiempo = (int)gameTime.TotalGameTime.TotalSeconds;
-            vida.Update(gameTime);
-            escenario.Update(gameTime);
-            enemigos.Update(gameTime);
+            tiempoEnJuego = (int)gameTime.TotalGameTime.TotalSeconds;
 
-              //mago
+            if (!escenario1.NivelCompletado)
+            {
+                nivelActual = 1;
+                escenario1.Update(gameTime);
+            }
+            else if (!escenario2.NivelCompletado)
+            {
+                nivelActual = 2;
+                escenario2.Update(gameTime);
+            }
             mago.Update(gameTime);
-            
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) //Cerrar Aplicación
+                this.Exit();
 
             base.Update(gameTime);
         }
@@ -114,44 +79,25 @@ namespace XNAVideoJuego
         {
             GraphicsDevice.Clear(Color.White);
 
-
             spriteBatch.Begin();
-            escenario.Draw(spriteBatch);
 
-            //Dibuja Enemigos
-            enemigos.Draw(spriteBatch);
+            if (!escenario1.NivelCompletado)
+                escenario1.Draw(spriteBatch);
+            else
+                escenario2.Draw(spriteBatch);
 
-            //Dibuja Textura Vida
-            vida.Draw(spriteBatch);
+            mago.Draw(spriteBatch);
 
-            //Dibuja Nombre Personaje
+            #region Dibujo de SpriteFonts
             spriteBatch.DrawString(fuente, ("Abandagi"), new Vector2(352, 10), Color.Black);
-
-            //Dibuja Contador Vida
-            spriteBatch.DrawString(fuente, ("X " + vida.NumeroVidas.ToString()), new Vector2(110, 10), Color.Black);
-
-            //Dibuja Número Nivel
+            spriteBatch.DrawString(fuente, ("X " + mago.Vida.NumeroVidas.ToString()), new Vector2(110, 14), Color.Black);
             spriteBatch.DrawString(fuente, ("  Nivel: " + nivelActual.ToString()), new Vector2(650, 10), Color.Black);
+            spriteBatch.DrawString(fuente, (" Tiempo: " + tiempoEnJuego.ToString()), new Vector2(650, 36), Color.Black);
+            spriteBatch.DrawString(fuente, (" Puntaje: " + mago.Puntos.ToString()), new Vector2(10, 36), Color.Black);
+            spriteBatch.DrawString(fuente, ("Gemas: " + mago.Gemas.ToString() + "/4"), new Vector2(340, 36), Color.Black);
+            #endregion
 
-            //Dibuja Tiempo
-            spriteBatch.DrawString(fuente, (" Tiempo: " + tiempo.ToString()), new Vector2(650, 34), Color.Black);
-
-            //Dibuja Puntaje
-            spriteBatch.DrawString(fuente, (" Puntaje: " + score.ToString()), new Vector2(10, 34), Color.Black);
-
-            //Dibuja Número Gemas
-            spriteBatch.DrawString(fuente, ("Gemas: " + gemas.ToString() + "/4"), new Vector2(340, 34), Color.Black);
-
-            //dibuja personaje
-            mago.drawMagoVivo(spriteBatch);
-
-            foreach (Enemigo enemigo in enemigos.Enemigos)
-            {
-                mago.Coliciones(vida, enemigo.RectDestino, 800);
-            }
-          
             spriteBatch.End();
-
 
             base.Draw(gameTime);
         }

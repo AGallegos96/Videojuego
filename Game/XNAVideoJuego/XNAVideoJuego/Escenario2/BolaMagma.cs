@@ -9,10 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace XNAVideoJuego
 {
-    public class Enemigo
+    public class BolaMagma
     {
         private GraphicsDeviceManager graphics;
-        private Random rnd = new Random();
         private Texture2D magmaTextura;
         private Rectangle rectOrigen;
         private Rectangle rectDestino;
@@ -23,21 +22,16 @@ namespace XNAVideoJuego
         private float paso, retraso;
         private int alturaMaxima;
         private bool bandera;
+        private bool visible;
 
-        public Vector2 Posicion
-        {
-            get { return posicion; }
-            set { posicion = value; }
+        #region Propiedades
+        public Vector2 Posicion { get { return posicion; } }
+        public Rectangle RectDestino{ get { return rectDestino; }}
+        public bool Visible { get { return visible; } set { visible = value; } }
+        public int AnchoFrame { get { return anchoFrame; } }
+        #endregion
 
-        }
-
-        public Rectangle RectDestino
-        {
-            get { return rectDestino; }
-
-        }
-
-        public void Initialize(GraphicsDeviceManager graphics)
+        public BolaMagma(GraphicsDeviceManager graphics)
         {
             this.graphics = graphics;
             anchoFrame = 34;
@@ -49,14 +43,15 @@ namespace XNAVideoJuego
             posicion = new Vector2((graphics.GraphicsDevice.Viewport.Width + anchoFrame), 410);
             rectOrigen = new Rectangle();
             rectDestino = new Rectangle();
-
-            alturaMaxima = 400;
+            alturaMaxima = 380;
             bandera = false;
+            visible = true;
         }
 
-        public void LoadContent(Texture2D magmaTextura)
+        public void LoadContent(ContentManager Content)
         {
-            this.magmaTextura = magmaTextura;
+            Content = new ContentManager(Content.ServiceProvider, "Content");
+            magmaTextura = Content.Load<Texture2D>("Objetos/02_Volcan/magma");
         }
 
         public void Update(GameTime gameTime, int idMovimiento = 0)
@@ -89,7 +84,7 @@ namespace XNAVideoJuego
             {
                 case 0:
                     {
-                        posicion.X -= rnd.Next(1, 4);
+                        posicion.X -= new Random().Next(1, 6);
                         posicion.Y = 410;
                     }
                     break;
@@ -107,7 +102,7 @@ namespace XNAVideoJuego
                         {
                             bandera = true;
                         }
-                        if (posicion.Y==412)
+                        if (posicion.Y==410)
                         {
                             bandera = false;
                         }

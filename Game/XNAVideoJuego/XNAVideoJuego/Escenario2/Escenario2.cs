@@ -1,0 +1,207 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+
+namespace XNAVideoJuego
+{
+    public class Escenario2
+    {
+        private GraphicsDeviceManager graphics;
+        private ContentManager content;
+        private List<Texture2D> listaEscenariosTexturas;
+        private Rectangle rectEscenario1;
+        private Rectangle rectEscenario2;
+        private Vector2 posicionEscenario1;
+        private Vector2 posicionEscenario2;
+        private float velocidadTraslado;
+        private List<BolaMagma> listaBolasMagma;
+        private int cantidadBolasMagma;
+        private float tiempoBolasMagma;
+        private int cantidadBolasMagmaEliminadas;
+        private const int puntosPorEnemigo = 35;
+        private Mago mago;
+        private bool nivelCompletado;
+
+        #region Propiedades
+        public bool NivelCompletado { get { return nivelCompletado; } }
+        #endregion
+
+        public Escenario2(GraphicsDeviceManager graphics, Mago mago)
+        {
+            this.graphics = graphics;
+            this.mago = mago;
+            this.mago.Posicion = new Vector2(0, 394);
+            this.mago.PosicionMuerte = this.mago.Posicion;
+            listaEscenariosTexturas = new List<Texture2D>();
+            posicionEscenario1 = new Vector2(0, 0);
+            posicionEscenario2 = new Vector2();
+            rectEscenario1 = new Rectangle();
+            rectEscenario2 = new Rectangle();
+            velocidadTraslado = 1f;
+            listaBolasMagma = new List<BolaMagma>();
+            cantidadBolasMagma = 0;
+            tiempoBolasMagma = 0;
+            cantidadBolasMagmaEliminadas = 0;
+            nivelCompletado = false;
+        }
+
+        public void LoadContent(ContentManager Content)
+        {
+            content = Content;
+            content = new ContentManager(content.ServiceProvider, "Content");
+            listaEscenariosTexturas.Add(content.Load<Texture2D>("Escenarios/02_Volcan/01"));
+            listaEscenariosTexturas.Add(content.Load<Texture2D>("Escenarios/02_Volcan/02"));
+            posicionEscenario2 = new Vector2(listaEscenariosTexturas.ElementAt(0).Width, 0);
+            rectEscenario1 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(0).Width, listaEscenariosTexturas.ElementAt(0).Height);
+            rectEscenario2 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(1).Width, listaEscenariosTexturas.ElementAt(1).Height);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            if (cantidadBolasMagmaEliminadas <= 30)
+            {
+                if (!mago.MagoMuerto)
+                {
+                    UpdateEscenario(gameTime);
+                    UpdateEnemigos(gameTime);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                mago.Gemas++;
+                mago.ActivarPoderFuego = true;
+                nivelCompletado = true;
+                listaBolasMagma.Clear();
+            }
+            UpdateMagoVida(gameTime);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            DrawEscenario(spriteBatch);
+            DrawEnemigos(spriteBatch);
+        }
+
+        public void UpdateEscenario(GameTime gameTime)
+        {
+            if (posicionEscenario1.X <= -listaEscenariosTexturas.ElementAt(0).Width)
+            {
+                posicionEscenario1.X = posicionEscenario1.X * -1;
+            }
+            if (posicionEscenario2.X <= -listaEscenariosTexturas.ElementAt(0).Width)
+            {
+                posicionEscenario2.X = posicionEscenario2.X * -1;
+            }
+            posicionEscenario1.X -= velocidadTraslado;
+            posicionEscenario2.X -= velocidadTraslado;
+        }
+
+        private void UpdateMagoVida(GameTime gameTime)
+        {
+            if (listaBolasMagma.Count > 0)
+            {
+                foreach (BolaMagma bolaMagma in listaBolasMagma)
+                {
+                    mago.ReducirVida(bolaMagma.RectDestino);
+                }
+            }
+        }
+
+        public void UpdateEnemigos(GameTime gameTime)
+        {
+            int tiempoEspera = new Random().Next(2, 6); //tiempo de esperar para crear una nueva Bola Magma
+            tiempoBolasMagma += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (tiempoBolasMagma > tiempoEspera)
+            {
+                CrearEnemigo();
+                cantidadBolasMagma++;
+                tiempoBolasMagma = 0;
+            }
+
+            if (listaBolasMagma.Count>0)
+            {
+                for (int i = 0; i < listaBolasMagma.Count; i++)
+                {
+                    if (mago.ListaPoderesNormal.Count>0)
+                    {
+                        for (int contPN = 0; contPN < mago.ListaPoderesNormal.Count; contPN++)
+                        {
+                            if (mago.ListaPoderesNormal[contPN].RectDestino.Intersects(listaBolasMagma[i].RectDestino))
+                            {
+                                cantidadBolasMagmaEliminadas++;
+                                mago.Puntos += puntosPorEnemigo;
+                                listaBolasMagma[i].Visible = false;
+                            }
+                        }
+                    }
+                    if (mago.ListaPoderesTierra.Count > 0)
+                    {
+                        for (int contPT = 0; contPT < mago.ListaPoderesTierra.Count; contPT++)
+                        {
+                            if (mago.ListaPoderesTierra[contPT].RectDestino.Intersects(listaBolasMagma[i].RectDestino))
+                            {
+                                mago.Puntos += puntosPorEnemigo;
+                                listaBolasMagma[i].Visible = false;
+                            }
+                        }
+                    }
+                    if (listaBolasMagma[i].Posicion.X <= -listaBolasMagma[i].AnchoFrame)
+                    {
+                        listaBolasMagma[i].Visible = false;
+                    }
+                    if (cantidadBolasMagma<=15)
+                    {
+                        listaBolasMagma[i].Update(gameTime);
+                    }
+                    else
+                    {
+                        listaBolasMagma[i].Update(gameTime, 1);
+                    }
+                }
+                for (int i = 0; i < listaBolasMagma.Count; i++)
+                {
+                    if (!listaBolasMagma[i].Visible)
+                    {
+                        listaBolasMagma.RemoveAt(i);
+                    }
+                }
+            }
+        }
+
+        public void CrearEnemigo()
+        {
+            BolaMagma enemigo = new BolaMagma(graphics);
+            enemigo.LoadContent(content);
+            listaBolasMagma.Add(enemigo);
+        }
+
+        private void DrawEscenario(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(listaEscenariosTexturas[0], posicionEscenario1, rectEscenario1, Color.White);
+            spriteBatch.Draw(listaEscenariosTexturas[1], posicionEscenario2, rectEscenario2, Color.White);
+        }
+
+        private void DrawEnemigos(SpriteBatch spriteBatch)
+        {
+            if (listaBolasMagma.Count > 0)
+            {
+                foreach (BolaMagma bolaMagma in listaBolasMagma)
+                {
+                    bolaMagma.Draw(spriteBatch);
+                }
+            }
+        }
+    }
+}
