@@ -24,7 +24,7 @@ namespace XNAVideoJuego
         public bool Visible { get { return visible; } }
         public Rectangle RectDestino { get { return rectDestino; }}
         #endregion
-
+    
         public PoderMago(string identificador = "poder_normal", int alcanceMaximo = 100)
         {
             this.identificador = identificador;

@@ -134,7 +134,7 @@ namespace XNAVideoJuego
 
         private void UpdateEnemigos(GameTime gameTime)
         {
-            int tiempoEspera = 5;//DeterminarTiempoEsperaLenador(); //depende de DeterminarTiempoEsperaLenador() aparece un nuevo leñador
+            int tiempoEspera = DeterminarTiempoEsperaLenador(); //depende de DeterminarTiempoEsperaLenador() aparece un nuevo leñador
             tiempoLenadores += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (tiempoLenadores > tiempoEspera)
             {

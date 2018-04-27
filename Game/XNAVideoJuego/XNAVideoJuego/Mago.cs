@@ -301,15 +301,13 @@ namespace XNAVideoJuego
 
         private void CrearDisparo(List<PoderMago> listaPoderes, string identificador = "poder_normal", int alcanceMaximo = 100)
         {
-            if (EstadoActual == Estado.Caminando)
-            {
+
                 PoderMago poder = new PoderMago(identificador, alcanceMaximo);
                 poder.LoadContent(content);
                 Vector2 direccionDisparo = new Vector2(1, 0);
                 if (!sentidoMovimiento) { direccionDisparo = new Vector2(-1, 0); }
                 poder.Disparar(posicion + new Vector2(anchoFrame / 2, altoFrame / 2), new Vector2(200, 200), direccionDisparo);
                 listaPoderes.Add(poder);
-            }
         }
 
         public void ReducirVida(Rectangle rectEnemigo)
@@ -318,14 +316,13 @@ namespace XNAVideoJuego
             {
                 if (listaAnimaciones[indiceAnimacionActual].DestinationRect.Intersects(rectEnemigo))
                 {
-                    posicion.X -= 50; //Retroceder 50 pixeles
+                    posicion.X -= 200; //Retroceder 200 pixeles
                     vida.NumeroVidas--;
                 }
             }
             else if (vida.NumeroVidas == 0)
             {
                 magoMuerto = true;
-                posicion = posicionMuerte;
             }
         }
     }
