@@ -64,7 +64,8 @@
     <Compile Include="Escenario1\Lenador.cs" />
     <Compile Include="Escenario2\BolaMagma.cs" />
     <Compile Include="Escenario2\Escenario2.cs" />
-    <Compile Include="Escenario3\ole.cs" />
+    <Compile Include="Escenario3\ErizosMarinos.cs" />
+    <Compile Include="Escenario3\Escenario3.cs" />
     <Compile Include="PoderMago.cs" />
     <Compile Include="Mago.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

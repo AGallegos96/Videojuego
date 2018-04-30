@@ -21,6 +21,7 @@ namespace XNAVideoJuego
         Mago mago;
         Escenario1 escenario1;
         Escenario2 escenario2;
+        Escenario3 escenario3;
 
         public Game1()
         {
@@ -35,7 +36,7 @@ namespace XNAVideoJuego
             mago = new Mago(graphics);
             escenario1 = new Escenario1(graphics, mago);
             escenario2 = new Escenario2(graphics, mago);
-
+            escenario3 = new Escenario3(graphics, mago);
             base.Initialize();
         }
 
@@ -45,6 +46,7 @@ namespace XNAVideoJuego
             fuente = Content.Load<SpriteFont>("Fuentes/fuenteJuego");
             escenario1.LoadContent(Content);
             escenario2.LoadContent(Content);
+            escenario3.LoadContent(Content);
             mago.LoadContent(Content);
         }
 
@@ -66,6 +68,11 @@ namespace XNAVideoJuego
                 nivelActual = 2;
                 escenario2.Update(gameTime);
             }
+            else if(!escenario3.NivelCompletado)
+            {
+                nivelActual = 3;
+                escenario3.Update(gameTime);
+            }
             mago.Update(gameTime);
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) //Cerrar Aplicación
@@ -84,7 +91,10 @@ namespace XNAVideoJuego
             if (!escenario1.NivelCompletado)
                 escenario1.Draw(spriteBatch);
             else
+                if (!escenario2.NivelCompletado)
                 escenario2.Draw(spriteBatch);
+            else
+                escenario3.Draw(spriteBatch);
 
             mago.Draw(spriteBatch);
 
