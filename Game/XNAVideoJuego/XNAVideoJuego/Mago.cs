@@ -171,7 +171,7 @@ namespace XNAVideoJuego
                     {
                         EstadoActual = Estado.Saltando;
                         posicionInicial = posicion;
-                        direccion.Y = -1;
+                        direccion.Y = -9f;
                         velocidadVector = new Vector2(velocidad, velocidad);
                     }
                 }
@@ -184,6 +184,7 @@ namespace XNAVideoJuego
                     FijarAnimacion("saltar", "izq");
                 if (posicionInicial.Y - posicion.Y > 75) //Altura de Salto px
                     direccion.Y = 1;
+                
                 if (posicion.Y > posicionInicial.Y)
                 {
                     posicion.Y = posicionInicial.Y;

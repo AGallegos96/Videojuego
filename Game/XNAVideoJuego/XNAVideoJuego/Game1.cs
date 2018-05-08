@@ -22,7 +22,7 @@ namespace XNAVideoJuego
         Escenario1 escenario1;
         Escenario2 escenario2;
         Escenario3 escenario3;
-
+        Camara cam;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -37,6 +37,7 @@ namespace XNAVideoJuego
             escenario1 = new Escenario1(graphics, mago);
             escenario2 = new Escenario2(graphics, mago);
             escenario3 = new Escenario3(graphics, mago);
+            cam = new Camara(GraphicsDevice.Viewport);
             base.Initialize();
         }
 
@@ -58,7 +59,7 @@ namespace XNAVideoJuego
         {
             tiempoEnJuego = (int)gameTime.TotalGameTime.TotalSeconds;
 
-            if (!escenario1.NivelCompletado)
+            /*if (!escenario1.NivelCompletado)
             {
                 nivelActual = 1;
                 escenario1.Update(gameTime);
@@ -68,10 +69,10 @@ namespace XNAVideoJuego
                 nivelActual = 2;
                 escenario2.Update(gameTime);
             }
-            else if(!escenario3.NivelCompletado)
+            else*/ if(!escenario3.NivelCompletado)
             {
                 nivelActual = 3;
-                escenario3.Update(gameTime);
+                escenario3.Update1(gameTime);
             }
             mago.Update(gameTime);
 
@@ -88,12 +89,12 @@ namespace XNAVideoJuego
 
             spriteBatch.Begin();
 
-            if (!escenario1.NivelCompletado)
+            /*if (!escenario1.NivelCompletado)
                 escenario1.Draw(spriteBatch);
             else
                 if (!escenario2.NivelCompletado)
                 escenario2.Draw(spriteBatch);
-            else
+            else*/
                 escenario3.Draw(spriteBatch);
 
             mago.Draw(spriteBatch);
