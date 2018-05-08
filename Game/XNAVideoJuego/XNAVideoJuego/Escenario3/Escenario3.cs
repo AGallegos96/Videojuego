@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace XNAVideoJuego
 {
-    public class Escenario3 
+    public class Escenario3
     {
         private GraphicsDeviceManager graphics;
         private ContentManager content;
@@ -29,9 +29,7 @@ namespace XNAVideoJuego
         private const int puntosPorEnemigo = 35;
         private Mago mago;
         private bool nivelCompletado;
-        private Camara camara;
-        private Map mapa;
-        
+
         #region Propiedades
         public bool NivelCompletado { get { return nivelCompletado; } }
         #endregion
@@ -53,7 +51,6 @@ namespace XNAVideoJuego
             tiempoErizosMarinos = 0;
             cantidadErizosMarinosEliminados = 0;
             nivelCompletado = false;
-            camara = new Camara(graphics.GraphicsDevice.Viewport);
         }
 
         public void LoadContent(ContentManager Content)
@@ -65,10 +62,6 @@ namespace XNAVideoJuego
             posicionEscenario2 = new Vector2(listaEscenariosTexturas.ElementAt(0).Width, 0);
             rectEscenario1 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(0).Width, listaEscenariosTexturas.ElementAt(0).Height);
             rectEscenario2 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(1).Width, listaEscenariosTexturas.ElementAt(1).Height);
-            Tiles.Content = content;
-            mapa.Generar(new int[,] {   {0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                        {0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0}, }, 10);
-            mago.LoadContent(content);
         }
 
         public void UnloadContent()
@@ -118,7 +111,6 @@ namespace XNAVideoJuego
             }
             posicionEscenario1.X -= velocidadTraslado;
             posicionEscenario2.X -= velocidadTraslado;
-            camara.Update(mago.Posicion, mapa.Ancho, mapa.Altura);
         }
 
         private void UpdateMagoVida(GameTime gameTime)
@@ -215,7 +207,6 @@ namespace XNAVideoJuego
 
         private void DrawEscenario(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camara.Transformacion);
             spriteBatch.Draw(listaEscenariosTexturas[0], posicionEscenario1, rectEscenario1, Color.White);
             spriteBatch.Draw(listaEscenariosTexturas[1], posicionEscenario2, rectEscenario2, Color.White);
         }

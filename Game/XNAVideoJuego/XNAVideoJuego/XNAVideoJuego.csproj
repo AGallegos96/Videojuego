@@ -71,7 +71,6 @@
     <Compile Include="Controladores\Pantallas\SplashScreen.cs" />
     <Compile Include="Controladores\Pantallas\MenuScreen.cs" />
     <Compile Include="Controladores\Pantallas\VideoScreen.cs" />
-    <Compile Include="Camara.cs" />
     <Compile Include="Escenario1\Escenario1.cs" />
     <Compile Include="Escenario1\Hacha.cs" />
     <Compile Include="Escenario1\Lenador.cs" />
@@ -79,13 +78,12 @@
     <Compile Include="Escenario2\Escenario2.cs" />
     <Compile Include="Escenario3\ErizosMarinos.cs" />
     <Compile Include="Escenario3\Escenario3.cs" />
+    <Compile Include="Controladores\Pantallas\IntroScreen.cs" />
     <Compile Include="PoderMago.cs" />
     <Compile Include="Mago.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="RectangleH.cs" />
-    <Compile Include="Tiles.cs" />
     <Compile Include="Vida.cs" />
   </ItemGroup>
   <ItemGroup>

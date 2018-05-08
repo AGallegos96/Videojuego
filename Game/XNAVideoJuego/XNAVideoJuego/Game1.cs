@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -14,101 +15,76 @@ namespace XNAVideoJuego
 
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        SpriteFont fuente;
-        int nivelActual, tiempoEnJuego;
-        Mago mago;
-        Escenario1 escenario1;
-        Escenario2 escenario2;
-        Escenario3 escenario3;
-        Camara cam;
+        public static Game1 juegoMain;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private bool noBlend;
+
+        private string nombreJugador;
+        private int nivelActual;
+        private int tiempoEnJuego;
+        private List<Mago> listaMagos;
+
         public Game1()
         {
+            noBlend = true;
             graphics = new GraphicsDeviceManager(this);
+            juegoMain = this;
             Content.RootDirectory = "Content";
-
         }
+
+        #region Propiedades
+        public string NombreJugador { get { return nombreJugador; } set { nombreJugador = value; } }
+        public int TiempoEnJuego { get { return tiempoEnJuego; } set { tiempoEnJuego = value; } }
+        public int NivelActual { get { return nivelActual; } set { nivelActual = value; } }
+        public List<Mago> ListaMagos { get { return listaMagos; } set { listaMagos = value; } }
+        public bool NoBlend { get { return noBlend; } set { noBlend = value; } }
+        #endregion
 
         protected override void Initialize()
         {
+            ScreenManager.Instance.Initialize(graphics);
+            ScreenManager.Instance.Dimensions = new Vector2(graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
+            graphics.PreferredBackBufferWidth = (int)ScreenManager.Instance.Dimensions.X;
+            graphics.PreferredBackBufferHeight = (int)ScreenManager.Instance.Dimensions.Y;
+            graphics.ApplyChanges();
+            AudioManager.Initialize(this);
             this.IsMouseVisible = true;
-            mago = new Mago(graphics);
-            escenario1 = new Escenario1(graphics, mago);
-            escenario2 = new Escenario2(graphics, mago);
-            escenario3 = new Escenario3(graphics, mago);
-            cam = new Camara(GraphicsDevice.Viewport);
+            nombreJugador = String.Empty;
+            nivelActual = tiempoEnJuego = 0;
+            listaMagos = new List<Mago>();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            fuente = Content.Load<SpriteFont>("Fuentes/fuenteJuego");
-            escenario1.LoadContent(Content);
-            escenario2.LoadContent(Content);
-            escenario3.LoadContent(Content);
-            mago.LoadContent(Content);
+            ScreenManager.Instance.LoadContent(Content);
         }
 
-        protected override void UnloadContent()
-        {
-        }
+        protected override void UnloadContent() { }
 
         protected override void Update(GameTime gameTime)
         {
-            tiempoEnJuego = (int)gameTime.TotalGameTime.TotalSeconds;
-
-            /*if (!escenario1.NivelCompletado)
-            {
-                nivelActual = 1;
-                escenario1.Update(gameTime);
-            }
-            else if (!escenario2.NivelCompletado)
-            {
-                nivelActual = 2;
-                escenario2.Update(gameTime);
-            }
-            else*/ if(!escenario3.NivelCompletado)
-            {
-                nivelActual = 3;
-                escenario3.Update1(gameTime);
-            }
-            mago.Update(gameTime);
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) //Cerrar Aplicación
-                this.Exit();
-
+            ScreenManager.Instance.Update(gameTime);
             base.Update(gameTime);
         }
 
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
-
-            spriteBatch.Begin();
-
-            /*if (!escenario1.NivelCompletado)
-                escenario1.Draw(spriteBatch);
+            if (noBlend)
+            {
+                spriteBatch.Begin();
+                ScreenManager.Instance.Draw(spriteBatch);
+                spriteBatch.End();
+            }
             else
-                if (!escenario2.NivelCompletado)
-                escenario2.Draw(spriteBatch);
-            else*/
-                escenario3.Draw(spriteBatch);
-
-            mago.Draw(spriteBatch);
-
-            #region Dibujo de SpriteFonts
-            spriteBatch.DrawString(fuente, ("Abandagi"), new Vector2(352, 10), Color.Black);
-            spriteBatch.DrawString(fuente, ("X " + mago.Vida.NumeroVidas.ToString()), new Vector2(110, 14), Color.Black);
-            spriteBatch.DrawString(fuente, ("  Nivel: " + nivelActual.ToString()), new Vector2(650, 10), Color.Black);
-            spriteBatch.DrawString(fuente, (" Tiempo: " + tiempoEnJuego.ToString()), new Vector2(650, 36), Color.Black);
-            spriteBatch.DrawString(fuente, (" Puntaje: " + mago.Puntos.ToString()), new Vector2(10, 36), Color.Black);
-            spriteBatch.DrawString(fuente, ("Gemas: " + mago.Gemas.ToString() + "/4"), new Vector2(340, 36), Color.Black);
-            #endregion
-
-            spriteBatch.End();
+            {
+                spriteBatch.Begin(0, BlendState.Additive);
+                ScreenManager.Instance.Draw(spriteBatch);
+                spriteBatch.End();
+            }
 
             base.Draw(gameTime);
         }
