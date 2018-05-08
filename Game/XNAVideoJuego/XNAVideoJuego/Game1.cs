@@ -68,7 +68,7 @@ namespace XNAVideoJuego
                 nivelActual = 2;
                 escenario2.Update(gameTime);
             }
-            else if(!escenario3.NivelCompletado)
+            else if (!escenario3.NivelCompletado)
             {
                 nivelActual = 3;
                 escenario3.Update(gameTime);

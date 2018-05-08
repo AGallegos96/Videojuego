@@ -64,6 +64,11 @@ namespace XNAVideoJuego
             rectEscenario2 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(1).Width, listaEscenariosTexturas.ElementAt(1).Height);
         }
 
+        public void UnloadContent()
+        {
+            content.Unload();
+        }
+
         public void Update(GameTime gameTime)
         {
             if (cantidadBolasMagmaEliminadas <= 30)
