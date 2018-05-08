@@ -105,6 +105,11 @@ namespace XNAVideoJuego
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/saltando"), posicion, anchoFrame, altoFrame, 5, 80, Color.White, true));
         }
 
+        public void UnloadContent()
+        {
+            content.Unload();
+        }
+
         public void Update(GameTime gameTime)
         {
             this.gameTime = gameTime;
@@ -291,6 +296,7 @@ namespace XNAVideoJuego
             {
                 FijarAnimacion("atacar", "der");
                 CrearDisparo(listaPoderesNormal, "poder_normal", 150);
+                //AudioManager.PlaySoundEffect("fire_laser1");
             }
             if (activarPoderTierra && teclaNuevoEstado.IsKeyDown(Keys.X) && teclaEstadoAnterior.IsKeyUp(Keys.X))
             {

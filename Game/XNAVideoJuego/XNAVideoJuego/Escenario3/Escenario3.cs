@@ -71,7 +71,12 @@ namespace XNAVideoJuego
             mago.LoadContent(content);
         }
 
-        public void Update1(GameTime gameTime)
+        public void UnloadContent()
+        {
+            content.Unload();
+        }
+
+        public void Update(GameTime gameTime)
         {
             if (cantidadErizosMarinosEliminados <= 30)
             {

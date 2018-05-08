@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNAVideoJuego", "XNAVideoJuego\XNAVideoJuego\XNAVideoJuego.csproj", "{7A2C91DB-CF3C-4C3A-8BEC-9CC248233C60}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "XNAVideoJuegoContent", "XNAVideoJuego\XNAVideoJuegoContent\XNAVideoJuegoContent.contentproj", "{739179D5-A000-49D9-8C62-5C47A70D3128}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XNAVideoJuegoContent", "XNAVideoJuego\XNAVideoJuegoContent\XNAVideoJuegoContent.contentproj", "{739179D5-A000-49D9-8C62-5C47A70D3128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExplosionLibrary", "ExplosionLibrary\ExplosionLibrary.csproj", "{547825A0-FA43-4E46-9B1E-CB74CD50A5D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartfieldLibrary", "StartfieldLibrary\StartfieldLibrary.csproj", "{A1379B3E-C48E-4ACB-A7AD-9064D2C725F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleTextLibrary", "ParticleTextLibrary\ParticleTextLibrary.csproj", "{51493CAE-9EFF-43D2-A57C-F36BD6BE1C20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,8 +25,23 @@ Global
 		{7A2C91DB-CF3C-4C3A-8BEC-9CC248233C60}.Release|x86.Build.0 = Release|x86
 		{739179D5-A000-49D9-8C62-5C47A70D3128}.Debug|x86.ActiveCfg = Debug|x86
 		{739179D5-A000-49D9-8C62-5C47A70D3128}.Release|x86.ActiveCfg = Release|x86
+		{547825A0-FA43-4E46-9B1E-CB74CD50A5D5}.Debug|x86.ActiveCfg = Debug|x86
+		{547825A0-FA43-4E46-9B1E-CB74CD50A5D5}.Debug|x86.Build.0 = Debug|x86
+		{547825A0-FA43-4E46-9B1E-CB74CD50A5D5}.Release|x86.ActiveCfg = Release|x86
+		{547825A0-FA43-4E46-9B1E-CB74CD50A5D5}.Release|x86.Build.0 = Release|x86
+		{A1379B3E-C48E-4ACB-A7AD-9064D2C725F9}.Debug|x86.ActiveCfg = Debug|x86
+		{A1379B3E-C48E-4ACB-A7AD-9064D2C725F9}.Debug|x86.Build.0 = Debug|x86
+		{A1379B3E-C48E-4ACB-A7AD-9064D2C725F9}.Release|x86.ActiveCfg = Release|x86
+		{A1379B3E-C48E-4ACB-A7AD-9064D2C725F9}.Release|x86.Build.0 = Release|x86
+		{51493CAE-9EFF-43D2-A57C-F36BD6BE1C20}.Debug|x86.ActiveCfg = Debug|x86
+		{51493CAE-9EFF-43D2-A57C-F36BD6BE1C20}.Debug|x86.Build.0 = Debug|x86
+		{51493CAE-9EFF-43D2-A57C-F36BD6BE1C20}.Release|x86.ActiveCfg = Release|x86
+		{51493CAE-9EFF-43D2-A57C-F36BD6BE1C20}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2713A79F-553E-472F-BEF9-C580BD40A1C0}
 	EndGlobalSection
 EndGlobal
