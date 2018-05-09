@@ -7,7 +7,7 @@ using System.Text;
 
 namespace XNAVideoJuego
 {
-    class Camara    {
+    public class Camara    {
         private Matrix transformacion;
         public Matrix Transformacion {
             get { return transformacion; }

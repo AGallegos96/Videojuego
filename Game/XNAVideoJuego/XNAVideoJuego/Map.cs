@@ -7,7 +7,7 @@ using System.Text;
 
 namespace XNAVideoJuego
 {
-    class Map
+    public class Map
     {
         private List<CollisionTiles> collisionTiles = new List<CollisionTiles>();
         public List<CollisionTiles> CollisionTiles {

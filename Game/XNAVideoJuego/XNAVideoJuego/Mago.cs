@@ -14,16 +14,13 @@ namespace XNAVideoJuego
         private GraphicsDeviceManager graphics;
         private ContentManager content;
         private GameTime gameTime;
-        private int anchoFrame, altoFrame;
+        private int anchoFrame;
         private Vector2 posicion;
         private int indiceAnimacionActual;
         private List<Animacion> listaAnimaciones;
-        private const int velocidad = 160;
-        private Vector2 posicionInicial;
         private Vector2 posicionMuerte;
-        private Vector2 direccion;
-        private Vector2 velocidadVector;
-        private enum Estado{Caminando,Saltando}Estado EstadoActual;
+        private Vector2 velocidad;
+        private bool salto;
         private Vida vida;
         private bool activarPoderAgua, activarPoderAire, activarPoderFuego, activarPoderNormal, activarPoderTierra;
         private List<PoderMago> listaPoderesAgua;
@@ -68,13 +65,9 @@ namespace XNAVideoJuego
             indiceAnimacionActual = 1;
             vida = new Vida(3);
             anchoFrame = 50;
-            altoFrame = 51;
             posicion = Vector2.Zero;
-            posicionInicial = Vector2.Zero;
             posicionMuerte = Vector2.Zero;
-            direccion = Vector2.Zero;
-            velocidadVector = Vector2.Zero;
-            EstadoActual = Estado.Caminando;
+            velocidad = Vector2.Zero;
             activarPoderAgua = false;
             activarPoderAire = false;
             activarPoderFuego = false;
@@ -84,6 +77,7 @@ namespace XNAVideoJuego
             magoMuerto = false;
             puntos = 0;
             gemas = 0;
+            salto = false;
         }
 
         public void LoadContent(ContentManager Content)
@@ -91,18 +85,18 @@ namespace XNAVideoJuego
             content = Content;
             content = new ContentManager(Content.ServiceProvider, "Content");
             vida.LoadContent(Content);
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/atacando"), posicion, anchoFrame, altoFrame, 5, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/caminando"), posicion, anchoFrame, altoFrame, 7, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/corriendo"), posicion, anchoFrame, altoFrame, 7, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/IDLE"), posicion, anchoFrame, altoFrame, 6, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/muerto"), posicion, anchoFrame, altoFrame, 6, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/saltando"), posicion, anchoFrame, altoFrame, 5, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/atacando"), posicion, anchoFrame, altoFrame, 5, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/caminando"), posicion, anchoFrame, altoFrame, 7, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/corriendo"), posicion, anchoFrame, altoFrame, 7, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/IDLE"), posicion, anchoFrame, altoFrame, 6, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/muerto"), posicion, anchoFrame, altoFrame, 6, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/saltando"), posicion, anchoFrame, altoFrame, 5, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/atacando"), posicion, anchoFrame, 49, 5, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/caminando"), posicion, anchoFrame, 47, 7, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/corriendo"), posicion, anchoFrame, 48, 7, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/IDLE"), posicion, anchoFrame, 50, 6, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/muerto"), posicion, anchoFrame, 50, 6, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/saltando"), posicion, anchoFrame, 49, 5, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/atacando"), posicion, anchoFrame, 49, 5, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/caminando"), posicion, anchoFrame, 47, 7, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/corriendo"), posicion, anchoFrame, 48, 7, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/IDLE"), posicion, anchoFrame, 50, 6, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/muerto"), posicion, anchoFrame, 50, 6, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/saltando"), posicion, anchoFrame, 49, 5, 80, Color.White, true));
         }
 
         public void UnloadContent()
@@ -118,31 +112,58 @@ namespace XNAVideoJuego
             KeyboardState teclaNuevoEstado = Keyboard.GetState();
 
             if (!magoMuerto) {
-                if (sentidoMovimiento) { FijarAnimacion("caminar", "der"); }
-                else { FijarAnimacion("caminar", "izq"); }
-                UpdateMover(teclaNuevoEstado);
-                UpdateSaltar(teclaNuevoEstado);
+                if (teclaNuevoEstado.IsKeyUp(Keys.A) && !sentidoMovimiento)
+                    FijarAnimacion("IDLE", "izq");
+                else if (teclaNuevoEstado.IsKeyUp(Keys.D) && sentidoMovimiento)
+                    FijarAnimacion("IDLE", "der");
+
+                posicion += velocidad;
+                Input(teclaNuevoEstado);
+                if (velocidad.Y < 15) velocidad.Y += 0.4f;
+
                 UpdatePoderes(listaPoderesAgua, teclaNuevoEstado);
                 UpdatePoderes(listaPoderesAire, teclaNuevoEstado);
                 UpdatePoderes(listaPoderesFuego, teclaNuevoEstado);
                 UpdatePoderes(listaPoderesNormal, teclaNuevoEstado);
                 UpdatePoderes(listaPoderesTierra, teclaNuevoEstado);
-                posicion += direccion * velocidadVector * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (posicion.X < 0)
-                    posicion.X = 0;
-                if (posicion.X > graphics.GraphicsDevice.Viewport.Width - anchoFrame)
-                    posicion.X = graphics.GraphicsDevice.Viewport.Width - anchoFrame;
-                if (posicion.Y < 0)
-                    posicion.Y = 0;
-                if (posicion.Y > graphics.GraphicsDevice.Viewport.Height - altoFrame)
-                    posicion.Y = graphics.GraphicsDevice.Viewport.Height - altoFrame;
-            }else{
+            }
+            else
+            {
                 if (sentidoMovimiento)
                     FijarAnimacion("morir", "der");
                 else
                     FijarAnimacion("morir", "izq");
             }
             listaAnimaciones[indiceAnimacionActual].Update(gameTime, posicion);
+            teclaEstadoAnterior = teclaNuevoEstado;
+        }
+
+        private void Input(KeyboardState teclaNuevoEstado)
+        {
+            if (teclaNuevoEstado.IsKeyDown(Keys.D))
+            {
+                velocidad.X = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 4;
+                FijarAnimacion("caminar", "der");
+                sentidoMovimiento = true;
+            }
+            else if (teclaNuevoEstado.IsKeyDown(Keys.A))
+            {
+                velocidad.X = -(float)gameTime.ElapsedGameTime.TotalMilliseconds / 4;
+                FijarAnimacion("caminar", "izq");
+                sentidoMovimiento = false;
+            }
+            else velocidad.X = 0f;
+
+            if (teclaNuevoEstado.IsKeyDown(Keys.Space) == true && teclaEstadoAnterior.IsKeyUp(Keys.Space) && salto == false)
+            {
+                if (sentidoMovimiento)
+                    FijarAnimacion("saltar", "der");
+                else
+                    FijarAnimacion("saltar", "izq");
+                posicion.Y -= 5f;
+                velocidad.Y = -10f; //Aquí se configura el salto
+                salto = true;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -163,59 +184,6 @@ namespace XNAVideoJuego
             foreach (PoderMago poder in listaPoderes)
             {
                 poder.Draw(spriteBatch);
-            }
-        }
-
-        private void UpdateSaltar(KeyboardState teclaNuevoEstado)
-        {
-            if (EstadoActual == Estado.Caminando)
-            {
-                if (teclaNuevoEstado.IsKeyDown(Keys.Space) == true && teclaEstadoAnterior.IsKeyUp(Keys.Space))
-                {
-                    if (EstadoActual != Estado.Saltando)
-                    {
-                        EstadoActual = Estado.Saltando;
-                        posicionInicial = posicion;
-                        direccion.Y = -1;
-                        velocidadVector = new Vector2(velocidad, velocidad);
-                    }
-                }
-            }
-            if (EstadoActual == Estado.Saltando)
-            {
-                if (sentidoMovimiento)
-                    FijarAnimacion("saltar", "der");
-                else
-                    FijarAnimacion("saltar", "izq");
-                if (posicionInicial.Y - posicion.Y > 75) //Altura de Salto px
-                    direccion.Y = 1;
-                if (posicion.Y > posicionInicial.Y)
-                {
-                    posicion.Y = posicionInicial.Y;
-                    EstadoActual = Estado.Caminando;
-                    direccion = Vector2.Zero;
-                }
-            }
-        }
-
-        private void UpdateMover(KeyboardState teclaNuevoEstado)
-        {
-            if (EstadoActual == Estado.Caminando)
-            {
-                velocidadVector = Vector2.Zero;
-                direccion = Vector2.Zero;
-                if (teclaNuevoEstado.IsKeyDown(Keys.A) == true)
-                {
-                    sentidoMovimiento = false;
-                    velocidadVector.X = velocidad;
-                    direccion.X = -1;
-                }
-                else if (teclaNuevoEstado.IsKeyDown(Keys.D) == true)
-                {
-                    sentidoMovimiento = true;
-                    velocidadVector.X = velocidad;
-                    direccion.X = 1;
-                }
             }
         }
 
@@ -294,26 +262,24 @@ namespace XNAVideoJuego
             if (activarPoderNormal && teclaNuevoEstado.IsKeyDown(Keys.Z) && teclaEstadoAnterior.IsKeyUp(Keys.Z))
             {
                 FijarAnimacion("atacar", "der");
-                CrearDisparo(listaPoderesNormal, "poder_normal", 150);
-                //AudioManager.PlaySoundEffect("fire_laser1");
+                CrearDisparo(listaPoderesNormal, "poder_normal", 150); 
             }
             if (activarPoderTierra && teclaNuevoEstado.IsKeyDown(Keys.X) && teclaEstadoAnterior.IsKeyUp(Keys.X))
             {
                 FijarAnimacion("atacar", "der");
                 CrearDisparo(listaPoderesTierra, "poder_tierra", 200);
             }
-            teclaEstadoAnterior = teclaNuevoEstado;
+            
         }
 
         private void CrearDisparo(List<PoderMago> listaPoderes, string identificador = "poder_normal", int alcanceMaximo = 100)
         {
-
-                PoderMago poder = new PoderMago(identificador, alcanceMaximo);
-                poder.LoadContent(content);
-                Vector2 direccionDisparo = new Vector2(1, 0);
-                if (!sentidoMovimiento) { direccionDisparo = new Vector2(-1, 0); }
-                poder.Disparar(posicion + new Vector2(anchoFrame / 2, altoFrame / 2), new Vector2(200, 200), direccionDisparo);
-                listaPoderes.Add(poder);
+            PoderMago poder = new PoderMago(identificador, alcanceMaximo);
+            poder.LoadContent(content);
+            Vector2 direccionDisparo = new Vector2(1, 0);
+            if (!sentidoMovimiento) { direccionDisparo = new Vector2(-1, 0); }
+            poder.Disparar(posicion + new Vector2(anchoFrame / 2, 48.5f / 2), new Vector2(200, 200), direccionDisparo);
+            listaPoderes.Add(poder);
         }
 
         public void ReducirVida(Rectangle rectEnemigo)
@@ -331,5 +297,33 @@ namespace XNAVideoJuego
                 magoMuerto = true;
             }
         }
+
+        public void Colision(Rectangle rect, int xOffSet, int yOffSet)
+        {
+
+            if (listaAnimaciones[indiceAnimacionActual].DestinationRect.TouchTopOf(rect))
+            {
+                posicion.Y = rect.Y - listaAnimaciones[indiceAnimacionActual].DestinationRect.Height;
+                velocidad.Y = 0f;
+                salto = false;
+            }
+            if (listaAnimaciones[indiceAnimacionActual].DestinationRect.TouchLeftOf(rect))
+            {
+                posicion.X = rect.X - listaAnimaciones[indiceAnimacionActual].DestinationRect.Width - 2;
+            }
+            if (listaAnimaciones[indiceAnimacionActual].DestinationRect.TouchRightOf(rect))
+            {
+                posicion.X = rect.X + listaAnimaciones[indiceAnimacionActual].DestinationRect.Width + 2;
+            }
+            if (listaAnimaciones[indiceAnimacionActual].DestinationRect.TouchBottomOf(rect))
+            {
+                velocidad.Y = 1f;
+            }
+            if (posicion.X < 0) posicion.X = 0;
+            if (posicion.X > xOffSet - listaAnimaciones[indiceAnimacionActual].DestinationRect.Width) posicion.X = xOffSet - listaAnimaciones[indiceAnimacionActual].DestinationRect.Width;
+            if (posicion.Y < 0) velocidad.X = 1f;
+            if (posicion.Y > yOffSet - listaAnimaciones[indiceAnimacionActual].DestinationRect.Height) posicion.Y = yOffSet - listaAnimaciones[indiceAnimacionActual].DestinationRect.Height;
+        }
+
     }
 }

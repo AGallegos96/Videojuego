@@ -8,9 +8,8 @@ using System.Text;
 
 namespace XNAVideoJuego
 {
-    class Tiles  {
+    public class Tiles  {
         public Texture2D texture;
-
 
         public Rectangle rectangle;
         public Rectangle Rectangle {
@@ -29,7 +28,7 @@ namespace XNAVideoJuego
         }
     }
 
-    class CollisionTiles : Tiles {
+    public class CollisionTiles : Tiles {
         public CollisionTiles(int i, Rectangle rectangle) {
             texture = Content.Load<Texture2D>("Tile" + i);
             this.Rectangle = rectangle;

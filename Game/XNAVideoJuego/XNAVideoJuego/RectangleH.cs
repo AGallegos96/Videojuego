@@ -7,7 +7,7 @@ using System.Text;
 
 namespace XNAVideoJuego
 {
-    static class RectangleH
+    public static class RectangleH
     {
         public static bool TouchTopOf(this Rectangle r1, Rectangle r2){
             return (r1.Bottom >= r2.Top - 1 && r1.Bottom <= r2.Top + (r2.Height / 2) &&

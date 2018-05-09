@@ -22,7 +22,7 @@ namespace XNAVideoJuego
 
         public override void Initialize()
         {
-            Game1.juegoMain.NoBlend = false;
+            Game1.juegoMain.IndiceSpriteBatch = 1;
             mensaje = "Presione tecla Espacio para omitir...";
         }
 
