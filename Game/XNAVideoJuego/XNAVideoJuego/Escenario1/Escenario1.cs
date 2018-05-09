@@ -50,7 +50,7 @@ namespace XNAVideoJuego
             cantidadLenadores = 0;
             cantidadLenadoresEliminados = 0;
             tiempoLenadores = 0;
-            nivelCompletado = false;
+            nivelCompletado = true;
         }
 
         public void LoadContent(ContentManager Content)

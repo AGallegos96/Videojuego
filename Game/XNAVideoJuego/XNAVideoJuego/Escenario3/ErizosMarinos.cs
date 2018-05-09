@@ -34,13 +34,13 @@ namespace XNAVideoJuego
         public ErizosMarinos(GraphicsDeviceManager graphics)
         {
             this.graphics = graphics;
-            anchoFrame = 34;
-            altoFrame = 30;
-            cantidadFrames = 3;
+            anchoFrame = 70;
+            altoFrame = 70;
+            cantidadFrames = 4;
             frameActual = 0;
             paso = 0;
             retraso = 80f;
-            posicion = new Vector2((graphics.GraphicsDevice.Viewport.Width + anchoFrame), 410);
+            posicion = new Vector2((graphics.GraphicsDevice.Viewport.Width + anchoFrame), 370);
             rectOrigen = new Rectangle();
             rectDestino = new Rectangle();
             alturaMaxima = 380;
@@ -51,7 +51,7 @@ namespace XNAVideoJuego
         public void LoadContent(ContentManager Content)
         {
             Content = new ContentManager(Content.ServiceProvider, "Content");
-            erizoTextura = Content.Load<Texture2D>("Objetos/02_Volcan/magma");
+            erizoTextura = Content.Load<Texture2D>("Personajes/Erizo/Movimiento_Izquierda");
         }
 
         public void Update(GameTime gameTime, int idMovimiento = 0)
@@ -85,7 +85,7 @@ namespace XNAVideoJuego
                 case 0:
                     {
                         posicion.X -= new Random().Next(1, 6);
-                        posicion.Y = 410;
+                        posicion.Y = 370;
                     }
                     break;
                 case 1:
@@ -102,7 +102,7 @@ namespace XNAVideoJuego
                         {
                             bandera = true;
                         }
-                        if (posicion.Y == 410)
+                        if (posicion.Y == 370)
                         {
                             bandera = false;
                         }

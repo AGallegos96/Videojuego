@@ -16,6 +16,7 @@ namespace XNAVideoJuego
         private Escenario1 escenario1;
         private Escenario2 escenario2;
         private Escenario3 escenario3;
+
         private float tiempoTranscurrido;
 
         public JugarScreen(GraphicsDeviceManager graphics) : base(graphics) { }
@@ -57,7 +58,7 @@ namespace XNAVideoJuego
                 Game1.juegoMain.TiempoEnJuego++;
             }
 
-            if (!escenario1.NivelCompletado)
+            /*if (!escenario1.NivelCompletado)
             {
                 Game1.juegoMain.NivelActual = 1;
                 escenario1.Update(gameTime);
@@ -66,11 +67,11 @@ namespace XNAVideoJuego
             {
                 Game1.juegoMain.NivelActual = 2;
                 escenario2.Update(gameTime);
-            }
-            else if (!escenario3.NivelCompletado)
+            }*/
+            if (!escenario3.NivelCompletado)
             {
                 Game1.juegoMain.NivelActual = 3;
-                escenario3.Update(gameTime);
+                escenario3.Update1(gameTime);
             }
             else
             {
@@ -84,14 +85,14 @@ namespace XNAVideoJuego
         public override void Draw(SpriteBatch spriteBatch)
         {
             graphics.GraphicsDevice.Clear(Color.White);
-            if (!escenario1.NivelCompletado) {
+            /*if (!escenario1.NivelCompletado) {
                 escenario1.Draw(spriteBatch);
             }
             else if (!escenario2.NivelCompletado)
             {
                 escenario2.Draw(spriteBatch);
-            }
-            else if (!escenario3.NivelCompletado)
+            }*/
+            if (!escenario3.NivelCompletado)
             {
                 escenario3.Draw(spriteBatch);
             }

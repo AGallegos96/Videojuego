@@ -29,6 +29,7 @@ namespace XNAVideoJuego
         private const int puntosPorEnemigo = 35;
         private Mago mago;
         private bool nivelCompletado;
+        private Map mapa;
 
         #region Propiedades
         public bool NivelCompletado { get { return nivelCompletado; } }
@@ -51,6 +52,7 @@ namespace XNAVideoJuego
             tiempoErizosMarinos = 0;
             cantidadErizosMarinosEliminados = 0;
             nivelCompletado = false;
+            mapa = new Map();
         }
 
         public void LoadContent(ContentManager Content)
@@ -62,19 +64,39 @@ namespace XNAVideoJuego
             posicionEscenario2 = new Vector2(listaEscenariosTexturas.ElementAt(0).Width, 0);
             rectEscenario1 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(0).Width, listaEscenariosTexturas.ElementAt(0).Height);
             rectEscenario2 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(1).Width, listaEscenariosTexturas.ElementAt(1).Height);
+            Tiles.Content = content;
+            mapa.Generar(new int[,]{
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,6,6,0,0,0,6,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5}}, 40);
+            mago.LoadContent(content);
         }
-
         public void UnloadContent()
         {
             content.Unload();
         }
 
-        public void Update(GameTime gameTime)
+        public void Update1(GameTime gameTime)
         {
+            Game1.juegoMain.IndiceSpriteBatch = 2;
             if (cantidadErizosMarinosEliminados <= 30)
             {
                 if (!mago.MagoMuerto)
                 {
+                    foreach (CollisionTiles tile in mapa.CollisionTiles)
+                    {
+                        mago.Colision(tile.rectangle, mapa.Ancho, mapa.Altura);
+                        Game1.juegoMain.Camara.Update(mago.Posicion, mapa.Ancho, mapa.Altura);
+                    }
                     UpdateEscenario(gameTime);
                     UpdateEnemigos(gameTime);
                 }
@@ -95,7 +117,8 @@ namespace XNAVideoJuego
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            DrawEscenario(spriteBatch);
+            //DrawEscenario(spriteBatch);
+            mapa.Draw(spriteBatch);
             DrawEnemigos(spriteBatch);
         }
 
@@ -111,6 +134,7 @@ namespace XNAVideoJuego
             }
             posicionEscenario1.X -= velocidadTraslado;
             posicionEscenario2.X -= velocidadTraslado;
+
         }
 
         private void UpdateMagoVida(GameTime gameTime)
@@ -207,6 +231,7 @@ namespace XNAVideoJuego
 
         private void DrawEscenario(SpriteBatch spriteBatch)
         {
+
             spriteBatch.Draw(listaEscenariosTexturas[0], posicionEscenario1, rectEscenario1, Color.White);
             spriteBatch.Draw(listaEscenariosTexturas[1], posicionEscenario2, rectEscenario2, Color.White);
         }

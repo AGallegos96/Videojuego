@@ -505,23 +505,37 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Escenarios\04_Isla\partes\0.png">
-      <Name>0</Name>
+    <Compile Include="tile1.png">
+      <Name>tile1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Escenarios\04_Isla\partes\1.png">
-      <Name>1</Name>
+    <Compile Include="tile2.png">
+      <Name>tile2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Escenarios\04_Isla\partes\2.png">
-      <Name>2</Name>
+    <Compile Include="tile3.png">
+      <Name>tile3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Escenarios\04_Isla\partes\3.png">
-      <Name>3</Name>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="tile4.png">
+      <Name>tile4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="tile5.png">
+      <Name>tile5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="tile6.png">
+      <Name>tile6</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

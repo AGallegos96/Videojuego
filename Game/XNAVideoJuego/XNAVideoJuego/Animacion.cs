@@ -26,7 +26,7 @@ namespace XNAVideoJuego
         private Vector2 position; //Posición del sprite
 
         #region Propiedades
-        public Rectangle DestinationRect { get { return destinationRect; } }
+        public Rectangle DestinationRect { get { return destinationRect; }}
         public Vector2 Position { get { return position; } }
         public bool Looping {get { return looping; } set { looping = value; } }
         #endregion

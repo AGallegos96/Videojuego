@@ -32,7 +32,7 @@ namespace XNAVideoJuego
 
         public override void Initialize()
         {
-            Game1.juegoMain.NoBlend = true;
+            Game1.juegoMain.IndiceSpriteBatch = 0;
             posicionTexto = new Vector2(278, 350);
             cadenaTexto = String.Empty;
             // create the particle systems and add them to the components list.

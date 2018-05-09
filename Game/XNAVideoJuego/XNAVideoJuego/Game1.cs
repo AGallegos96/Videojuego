@@ -18,16 +18,16 @@ namespace XNAVideoJuego
         public static Game1 juegoMain;
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private bool noBlend;
-
+        private int indiceSpriteBatch;
         private string nombreJugador;
         private int nivelActual;
         private int tiempoEnJuego;
         private List<Mago> listaMagos;
+        private Camara camara;
 
         public Game1()
         {
-            noBlend = true;
+            indiceSpriteBatch = 0;
             graphics = new GraphicsDeviceManager(this);
             juegoMain = this;
             Content.RootDirectory = "Content";
@@ -38,7 +38,9 @@ namespace XNAVideoJuego
         public int TiempoEnJuego { get { return tiempoEnJuego; } set { tiempoEnJuego = value; } }
         public int NivelActual { get { return nivelActual; } set { nivelActual = value; } }
         public List<Mago> ListaMagos { get { return listaMagos; } set { listaMagos = value; } }
-        public bool NoBlend { get { return noBlend; } set { noBlend = value; } }
+        public int IndiceSpriteBatch { get { return indiceSpriteBatch; } set { indiceSpriteBatch = value; } }
+        public Camara Camara { get { return camara; } set { camara = value; } }
+        public SpriteBatch SpriteBatch { get { return spriteBatch; } set { spriteBatch = value; } }
         #endregion
 
         protected override void Initialize()
@@ -53,6 +55,7 @@ namespace XNAVideoJuego
             nombreJugador = String.Empty;
             nivelActual = tiempoEnJuego = 0;
             listaMagos = new List<Mago>();
+            camara = new Camara(graphics.GraphicsDevice.Viewport);
             base.Initialize();
         }
 
@@ -73,19 +76,30 @@ namespace XNAVideoJuego
 
         protected override void Draw(GameTime gameTime)
         {
-            if (noBlend)
+            switch (indiceSpriteBatch)
             {
-                spriteBatch.Begin();
-                ScreenManager.Instance.Draw(spriteBatch);
-                spriteBatch.End();
+                case 0: //Para Escenarios 1 y 2
+                    {
+                        spriteBatch.Begin();
+                        ScreenManager.Instance.Draw(spriteBatch);
+                        spriteBatch.End();
+                    }
+                    break;
+                case 1: //Para SplashScreen
+                    {
+                        spriteBatch.Begin(0, BlendState.Additive);
+                        ScreenManager.Instance.Draw(spriteBatch);
+                        spriteBatch.End();
+                    }
+                    break;
+                case 2: //Para Escenarios 1, 4 y 5
+                    {
+                        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camara.Transformacion);
+                        ScreenManager.Instance.Draw(spriteBatch);
+                        spriteBatch.End();
+                    }
+                    break;
             }
-            else
-            {
-                spriteBatch.Begin(0, BlendState.Additive);
-                ScreenManager.Instance.Draw(spriteBatch);
-                spriteBatch.End();
-            }
-
             base.Draw(gameTime);
         }
     }
