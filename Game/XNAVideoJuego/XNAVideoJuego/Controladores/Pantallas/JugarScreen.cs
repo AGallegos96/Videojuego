@@ -12,7 +12,7 @@ namespace XNAVideoJuego
     public class JugarScreen : GameScreen
     {
         private SpriteFont fuente;
-        private Mago mago;
+      private Mago mago;
         private Escenario1 escenario1;
         private Escenario2 escenario2;
         private Escenario3 escenario3;

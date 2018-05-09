@@ -79,6 +79,9 @@
     <Compile Include="Escenario3\ErizosMarinos.cs" />
     <Compile Include="Escenario3\Escenario3.cs" />
     <Compile Include="Controladores\Pantallas\IntroScreen.cs" />
+    <Compile Include="Escenario4\Dragon.cs" />
+    <Compile Include="Escenario4\Escenario4.cs" />
+    <Compile Include="Escenario4\Fuego.cs" />
     <Compile Include="PoderMago.cs" />
     <Compile Include="Mago.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,7 +114,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Escenario4\" />
     <Folder Include="EscenarioFinal\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
