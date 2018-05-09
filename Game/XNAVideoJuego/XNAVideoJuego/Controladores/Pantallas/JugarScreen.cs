@@ -16,6 +16,7 @@ namespace XNAVideoJuego
         private Escenario1 escenario1;
         private Escenario2 escenario2;
         private Escenario3 escenario3;
+        private Escenario4 escenario4;
 
         private float tiempoTranscurrido;
 
@@ -28,6 +29,7 @@ namespace XNAVideoJuego
             escenario1 = new Escenario1(graphics, mago);
             escenario2 = new Escenario2(graphics, mago);
             escenario3 = new Escenario3(graphics, mago);
+            escenario4 = new Escenario4(graphics, mago);
         }
 
         public override void LoadContent(ContentManager Content)
@@ -38,6 +40,7 @@ namespace XNAVideoJuego
             escenario1.LoadContent(content);
             escenario2.LoadContent(content);
             escenario3.LoadContent(content);
+            escenario4.LoadContent(content);
         }
 
         public override void UnloadContent()
@@ -46,6 +49,7 @@ namespace XNAVideoJuego
             escenario1.UnloadContent();
             escenario2.UnloadContent();
             escenario3.UnloadContent();
+            escenario4.UnloadContent();
             base.UnloadContent();
         }
 
@@ -67,11 +71,17 @@ namespace XNAVideoJuego
             {
                 Game1.juegoMain.NivelActual = 2;
                 escenario2.Update(gameTime);
-            }*/
+            }
             if (!escenario3.NivelCompletado)
             {
                 Game1.juegoMain.NivelActual = 3;
                 escenario3.Update1(gameTime);
+            }
+            */
+            if (!escenario4.NivelCompletado)
+            {
+                Game1.juegoMain.NivelActual = 4;
+                escenario4.Update1(gameTime);
             }
             else
             {
@@ -91,10 +101,15 @@ namespace XNAVideoJuego
             else if (!escenario2.NivelCompletado)
             {
                 escenario2.Draw(spriteBatch);
-            }*/
+            }
             if (!escenario3.NivelCompletado)
             {
                 escenario3.Draw(spriteBatch);
+            }
+            */
+            if (!escenario4.NivelCompletado)
+            {
+                escenario4.Draw(spriteBatch);
             }
             else
             {

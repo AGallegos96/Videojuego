@@ -11,6 +11,146 @@ namespace XNAVideoJuego
 {
    public  class Dragon
     {
+        private GraphicsDeviceManager graphics;
+        private int anchoFrame, altoFrame;
+        private Vector2 posicion;
+        private int indiceAnimacionActual;
+        private List<Animacion> listaAnimaciones;
+        private List<Fuego> listaFuegos;
+        private bool sentidoMovimiento;
+        private bool dragonv;
+        private ContentManager content;
+        private float tiempofuego;
+        private bool visible;
+
+        #region Propiedades
+        public Vector2 Posicion { get { return posicion; } set { posicion = value; } }
+        public List<Animacion> ListaAnimaciones { get { return listaAnimaciones; } }
+        public List<Fuego> ListaFuegos { get { return listaFuegos; } }
+        public bool Dragonv { get { return dragonv; } }
+        public int AnchoFrame { get { return anchoFrame; } }
+        public int IndiceAnimacionActual { get { return indiceAnimacionActual; } }
+        public bool Visible { get { return visible; } set { visible = value; } }
+        #endregion
+
+        public Dragon()
+        {
+            listaAnimaciones = new List<Animacion>();
+            listaFuegos = new List<Fuego>();
+            indiceAnimacionActual = 1;
+            anchoFrame = 105;
+            altoFrame = 102;
+            posicion = Vector2.Zero;
+            sentidoMovimiento = false; //True (Hacia la Derecha) | False (Hacia la Izquierda)
+            tiempofuego = 0;
+            dragonv = false;
+        }
+
+        public void LoadContent(ContentManager Content)
+        {
+            content = Content;
+            content = new ContentManager(content.ServiceProvider, "Content");
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Dragón/ataque_derecha"), posicion, 105, altoFrame, 4, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Dragón/ataque_izquierda"), posicion, 105, altoFrame, 4, 80, Color.White, true));
+    }
+
+        public void Update(GameTime gameTime)
+        {
+            anchoFrame = listaAnimaciones[indiceAnimacionActual].DestinationRect.Width;
+
+            if (!dragonv)
+            {
+                if (sentidoMovimiento) { FijarAnimacion("correr", "ataque_derecha"); }
+                else { FijarAnimacion("correr", "ataque_izquierda"); }
+                Mover();
+
+                UpdateFuego(gameTime);
+            }
+          
+            listaAnimaciones[indiceAnimacionActual].Update(gameTime, posicion);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            listaAnimaciones[indiceAnimacionActual].Draw(spriteBatch);
+            if (!dragonv)
+            {
+                DrawFuego(spriteBatch);
+            }
+
+        }
+
+        private void FijarAnimacion(string nombreAccion = "correr", string sentidoAccion = "ataque_izquierda")
+        {
+            switch (nombreAccion)
+            {
+                case "correr":
+                    if (sentidoAccion.Equals("ataque_derecha"))
+                        indiceAnimacionActual = 0;
+                    else if (sentidoAccion.Equals("ataque_izquierda"))
+                        indiceAnimacionActual = 3;
+                    break;
+               
+                default:
+                    indiceAnimacionActual = 0;
+                    break;
+            }
+        }
+
+        private void Mover()
+        {
+            int moverse = 2;
+            if (sentidoMovimiento)
+                posicion.X += moverse;
+            else
+                posicion.X -= moverse;
+        }
+
+     
+
+        private void UpdateFuego(GameTime gameTime)
+        {
+            int tiempoEspera = new Random().Next(3, 9); //Entre 3 y 6 segundos se lanza una nueva hacha
+            tiempofuego += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (tiempofuego > tiempoEspera)
+            {
+                CrearDisparo();
+                tiempofuego = 0;
+            }
+            if (listaFuegos.Count > 0)
+            {
+                for (int i = 0; i < listaFuegos.Count; i++)
+                {
+                    listaFuegos[i].Update(gameTime);
+                    if (!listaFuegos[i].Visible)
+                    {
+                        listaFuegos.RemoveAt(i);
+                    }
+                }
+            }
+        }
+
+        private void CrearDisparo()
+        {
+            Fuego fuego = new Fuego(graphics);
+            fuego.LoadContent(content);
+            FijarAnimacion("correr", "izq");
+            Vector2 direccionDisparo = new Vector2(1, 0);
+            if (!sentidoMovimiento) { direccionDisparo = new Vector2(-1, 0); }
+            fuego.Disparar(posicion + new Vector2(anchoFrame / 2, altoFrame / 4), new Vector2(200, 200), direccionDisparo);
+            listaFuegos.Add(fuego);
+        }
+
+        private void DrawFuego(SpriteBatch spriteBatch)
+        {
+            if (listaFuegos.Count > 0)
+            {
+                foreach (Fuego fuego in listaFuegos)
+                {
+                    fuego.Draw(spriteBatch);
+                }
+            }
+        }
 
     }
 }
