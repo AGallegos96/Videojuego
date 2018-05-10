@@ -23,19 +23,25 @@ namespace XNAVideoJuego
         private int alturaMaxima;
         private bool bandera;
         private bool visible;
+        private Animacion animacion;
+        private Vector2 posicionInicial;
+        private Vector2 velocidad;
+        private Vector2 direccion;
 
         #region Propiedades
+        public Animacion Animacion { get { return animacion; } }
         public Vector2 Posicion { get { return posicion; } }
         public Rectangle RectDestino { get { return rectDestino; } }
         public bool Visible { get { return visible; } set { visible = value; } }
         public int AnchoFrame { get { return anchoFrame; } }
         #endregion
 
-        public Fuego(GraphicsDeviceManager graphics)
+    
+        public Fuego (GraphicsDeviceManager graphics)
         {
             this.graphics = graphics;
-            anchoFrame = 34;
-            altoFrame = 30;
+            anchoFrame = 32;
+            altoFrame = 39;
             cantidadFrames = 3;
             frameActual = 0;
             paso = 0;
@@ -110,6 +116,13 @@ namespace XNAVideoJuego
                     }
                     break;
             }
+        }
+        public void Disparar(Vector2 posicionInicial, Vector2 velocidad, Vector2 direccion)
+        {
+            posicion = posicionInicial;
+            this.posicionInicial = posicionInicial;
+            this.velocidad = velocidad;
+            this.direccion = direccion;
         }
 
     }
