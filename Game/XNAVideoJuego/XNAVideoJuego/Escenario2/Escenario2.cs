@@ -29,7 +29,7 @@ namespace XNAVideoJuego
         private const int puntosPorEnemigo = 35;
         private Mago mago;
         private bool nivelCompletado;
-
+        private Map mapa;
         #region Propiedades
         public bool NivelCompletado { get { return nivelCompletado; } }
         #endregion
@@ -51,6 +51,7 @@ namespace XNAVideoJuego
             tiempoBolasMagma = 0;
             cantidadBolasMagmaEliminadas = 0;
             nivelCompletado = false;
+            mapa = new Map();
         }
 
         public void LoadContent(ContentManager Content)
@@ -62,6 +63,22 @@ namespace XNAVideoJuego
             posicionEscenario2 = new Vector2(listaEscenariosTexturas.ElementAt(0).Width, 0);
             rectEscenario1 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(0).Width, listaEscenariosTexturas.ElementAt(0).Height);
             rectEscenario2 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(1).Width, listaEscenariosTexturas.ElementAt(1).Height);
+            Tiles.Content = Content;
+            Game1.juegoMain.Camara = new Camara(graphics.GraphicsDevice.Viewport);
+            mapa.Generar(new int[,]{{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9 }}, 40);
+
+
         }
 
         public void UnloadContent()
@@ -71,12 +88,18 @@ namespace XNAVideoJuego
 
         public void Update(GameTime gameTime)
         {
+            Game1.juegoMain.IndiceSpriteBatch = 2;
             if (cantidadBolasMagmaEliminadas <= 30)
             {
                 if (!mago.MagoMuerto)
                 {
                     UpdateEscenario(gameTime);
                     UpdateEnemigos(gameTime);
+                    foreach (CollisionTiles tile in mapa.CollisionTiles)
+                    {
+                        mago.Colision(tile.rectangle, mapa.Ancho, mapa.Altura);
+                        Game1.juegoMain.Camara.Update(mago.Posicion, mapa.Ancho, mapa.Altura);
+                    }
                 }
                 else
                 {
@@ -97,6 +120,7 @@ namespace XNAVideoJuego
         {
             DrawEscenario(spriteBatch);
             DrawEnemigos(spriteBatch);
+            mapa.Draw(spriteBatch);
         }
 
         public void UpdateEscenario(GameTime gameTime)
@@ -145,8 +169,6 @@ namespace XNAVideoJuego
                         {
                             if (mago.ListaPoderesNormal[contPN].RectDestino.Intersects(listaBolasMagma[i].RectDestino))
                             {
-                                cantidadBolasMagmaEliminadas++;
-                                mago.Puntos += puntosPorEnemigo;
                                 listaBolasMagma[i].Visible = false;
                             }
                         }
@@ -168,7 +190,7 @@ namespace XNAVideoJuego
                     }
                     if (cantidadBolasMagma<=15)
                     {
-                        listaBolasMagma[i].Update(gameTime);
+                        listaBolasMagma[i].Update(gameTime, 0);
                     }
                     else
                     {
@@ -179,6 +201,8 @@ namespace XNAVideoJuego
                 {
                     if (!listaBolasMagma[i].Visible)
                     {
+                        cantidadBolasMagmaEliminadas++;
+                        mago.Puntos += puntosPorEnemigo;
                         listaBolasMagma.RemoveAt(i);
                     }
                 }

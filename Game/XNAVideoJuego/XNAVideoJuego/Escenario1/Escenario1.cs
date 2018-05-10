@@ -29,6 +29,7 @@ namespace XNAVideoJuego
         private const int puntosPorEnemigo = 25;
         private Mago mago;
         private bool nivelCompletado;
+        private Map mapa;
 
         #region Propiedades
         public bool NivelCompletado { get { return nivelCompletado; } }
@@ -50,7 +51,8 @@ namespace XNAVideoJuego
             cantidadLenadores = 0;
             cantidadLenadoresEliminados = 0;
             tiempoLenadores = 0;
-            nivelCompletado = true;
+            nivelCompletado = false;
+            mapa = new Map();
         }
 
         public void LoadContent(ContentManager Content)
@@ -62,6 +64,20 @@ namespace XNAVideoJuego
             posicionEscenario2 = new Vector2(listaEscenariosTexturas.ElementAt(0).Width, 0);
             rectEscenario1 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(0).Width, listaEscenariosTexturas.ElementAt(0).Height);
             rectEscenario2 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(1).Width, listaEscenariosTexturas.ElementAt(1).Height);
+            Tiles.Content = Content;
+            Game1.juegoMain.Camara = new Camara(graphics.GraphicsDevice.Viewport);
+            mapa.Generar(new int[,]{{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                    {7,8,7,8,7,8,7,8,7,8,7,8,7,8,7,8,7,8,7,8 }}, 40);
         }
 
         public void UnloadContent()
@@ -78,6 +94,11 @@ namespace XNAVideoJuego
                 {
                     UpdateEscenario(gameTime);
                     UpdateEnemigos(gameTime);
+                    foreach (CollisionTiles tile in mapa.CollisionTiles)
+                    {
+                        mago.Colision(tile.rectangle, mapa.Ancho, mapa.Altura);
+                        Game1.juegoMain.Camara.Update(mago.Posicion, mapa.Ancho, mapa.Altura);
+                    }
                 }
                 else
                 {
@@ -98,6 +119,7 @@ namespace XNAVideoJuego
         {
             DrawEscenario(spriteBatch);
             DrawEnemigos(spriteBatch);
+            mapa.Draw(spriteBatch);
         }
 
         private void UpdateEscenario(GameTime gameTime)
@@ -130,11 +152,11 @@ namespace XNAVideoJuego
 
         private int DeterminarTiempoEsperaLenador()
         {
-            if (cantidadLenadores >= 40)
-                new Random().Next(1, 3); // entre 1 y 2 segundos
-            else if (cantidadLenadores >= 20 && cantidadLenadores < 40)
-                return new Random().Next(2, 4); // entre 2 y 3 segundos
-            return new Random().Next(3, 5); // entre 3 y 4 segundos
+            if (cantidadLenadoresEliminados >= 12)
+                new Random().Next(2, 4); // entre 2 y 3 segundos
+            else if (cantidadLenadores >= 6 && cantidadLenadores < 12)
+                return new Random().Next(4, 7); // entre 4 y 6 segundos
+            return new Random().Next(6, 9); // entre 6 y 8 segundos
         }
 
         private void UpdateEnemigos(GameTime gameTime)

@@ -75,7 +75,6 @@ namespace XNAVideoJuego
         }
         public void Update(GameTime gameTime)
         {
-            Console.WriteLine(screenStack.Count.ToString());
             if (!transition)
             {
                 currentScreen.Update(gameTime);
