@@ -50,7 +50,7 @@ namespace XNAVideoJuego
             cantidadBolasMagma = 0;
             tiempoBolasMagma = 0;
             cantidadBolasMagmaEliminadas = 0;
-            nivelCompletado = true;
+            nivelCompletado = false;
             mapa = new Map();
         }
 

@@ -51,7 +51,7 @@ namespace XNAVideoJuego
             cantidadLenadores = 0;
             cantidadLenadoresEliminados = 0;
             tiempoLenadores = 0;
-            nivelCompletado = true;
+            nivelCompletado = false;
             mapa = new Map();
         }
 
