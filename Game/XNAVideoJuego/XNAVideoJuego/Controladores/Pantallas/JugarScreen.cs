@@ -117,12 +117,12 @@ namespace XNAVideoJuego
             }
             mago.Draw(spriteBatch);
             #region Dibujo de SpriteFonts
-            spriteBatch.DrawString(fuente, (Game1.juegoMain.NombreJugador), new Vector2(17, 36), Color.Black);
-            spriteBatch.DrawString(fuente, ("X " + mago.Vida.NumeroVidas.ToString()), new Vector2(110, 14), Color.Black);
-            spriteBatch.DrawString(fuente, ("Puntaje: " + mago.Puntos.ToString()), new Vector2(341, 10), Color.Black);
-            spriteBatch.DrawString(fuente, ("Gemas: " + mago.Gemas.ToString() + "/4"), new Vector2(340, 36), Color.Black);
-            spriteBatch.DrawString(fuente, ("Nivel: " + Game1.juegoMain.NivelActual.ToString()), new Vector2(660, 10), Color.Black);
-            spriteBatch.DrawString(fuente, ("Tiempo: " + Game1.juegoMain.TiempoEnJuego.ToString()), new Vector2(660, 36), Color.Black);
+            spriteBatch.DrawString(fuente, (mago.NombreJugador), new Vector2(17 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X), 36), Color.Black);
+            spriteBatch.DrawString(fuente, ("X " + mago.Vida.NumeroVidas.ToString()), new Vector2(110 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X), 14), Color.Black);
+            spriteBatch.DrawString(fuente, ("Puntaje: " + mago.Puntos.ToString()), new Vector2(341 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X), 10), Color.Black);
+            spriteBatch.DrawString(fuente, ("Gemas: " + mago.Gemas.ToString() + "/4"), new Vector2(340 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X), 36), Color.Black);
+            spriteBatch.DrawString(fuente, ("Nivel: " + Game1.juegoMain.NivelActual.ToString()), new Vector2(660 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X), 10), Color.Black);
+            spriteBatch.DrawString(fuente, ("Tiempo: " + Game1.juegoMain.TiempoEnJuego.ToString()), new Vector2(660 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X), 36), Color.Black);
             #endregion
         }
     }

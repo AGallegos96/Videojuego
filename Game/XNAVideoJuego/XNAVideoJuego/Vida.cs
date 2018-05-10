@@ -66,6 +66,7 @@ namespace XNAVideoJuego
                     }
                     break;
             }
+            posicion.X = 17 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X);
         }
 
         public void Draw(SpriteBatch spriteBatch)

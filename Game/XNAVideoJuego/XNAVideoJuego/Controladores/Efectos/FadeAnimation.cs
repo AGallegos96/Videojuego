@@ -129,6 +129,7 @@ namespace XNAVideoJuego
             {
                 alpha = defaultAlpha;
             }
+            position = new Vector2(-Game1.juegoMain.Camara.Transformacion.Translation.X, 0);
         }
 
         public void Draw(SpriteBatch spriteBatch)

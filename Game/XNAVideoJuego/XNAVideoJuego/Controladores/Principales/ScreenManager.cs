@@ -99,11 +99,11 @@ namespace XNAVideoJuego
         {
             fade.Update(gameTime);
             if (fade.Alpha == 1.0f && fade.Timer.TotalSeconds == 1.0f)
-            {/*
+            {
                 if (screenStack.Count>0)
                 {
                     screenStack.Pop();
-                }*/
+                }
                 screenStack.Push(newScreen);
                 currentScreen.UnloadContent();
                 currentScreen = newScreen;
@@ -112,6 +112,7 @@ namespace XNAVideoJuego
             }
             else if (fade.Alpha == 0.0f)
             {
+                Game1.juegoMain.Camara.Transformacion = Matrix.CreateTranslation(new Vector3(0, 0, 0));
                 transition = false;
                 fade.IsActive = false;
             }

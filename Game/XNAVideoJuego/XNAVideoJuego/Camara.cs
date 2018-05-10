@@ -11,6 +11,7 @@ namespace XNAVideoJuego
         private Matrix transformacion;
         public Matrix Transformacion {
             get { return transformacion; }
+            set { transformacion = value; }
         }
         private Vector2 centro;
         private Viewport viewport;

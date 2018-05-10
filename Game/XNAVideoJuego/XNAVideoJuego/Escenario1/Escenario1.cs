@@ -51,7 +51,7 @@ namespace XNAVideoJuego
             cantidadLenadores = 0;
             cantidadLenadoresEliminados = 0;
             tiempoLenadores = 0;
-            nivelCompletado = false;
+            nivelCompletado = true;
             mapa = new Map();
         }
 
@@ -87,7 +87,6 @@ namespace XNAVideoJuego
 
         public void Update(GameTime gameTime)
         {
-            
             if (cantidadLenadoresEliminados <= 20)
             {
                 if (!mago.MagoMuerto)

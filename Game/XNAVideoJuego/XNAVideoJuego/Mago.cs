@@ -33,6 +33,7 @@ namespace XNAVideoJuego
         private bool magoMuerto;
         private int puntos;
         private int gemas;
+        private string nombreJugador;
 
         #region Propiedades
         public List<Animacion> ListaAnimaciones { get { return listaAnimaciones; } }
@@ -51,6 +52,7 @@ namespace XNAVideoJuego
         public int Puntos { get { return puntos; } set { puntos = value; } }
         public int Gemas { get { return gemas; } set { gemas = value; } }
         public bool MagoMuerto { get { return magoMuerto; } }
+        public string NombreJugador { get { return nombreJugador; } }
         #endregion
 
         public Mago(GraphicsDeviceManager graphics)
@@ -78,6 +80,7 @@ namespace XNAVideoJuego
             puntos = 0;
             gemas = 0;
             salto = false;
+            nombreJugador = Game1.juegoMain.NombreJugador;
         }
 
         public void LoadContent(ContentManager Content)
@@ -246,27 +249,22 @@ namespace XNAVideoJuego
             }
             if (activarPoderAgua && teclaNuevoEstado.IsKeyDown(Keys.V) && teclaEstadoAnterior.IsKeyUp(Keys.V))
             {
-                FijarAnimacion("atacar", "der");
                 CrearDisparo(listaPoderesAgua, "poder_agua", 300);
             }
             if (activarPoderAire && teclaNuevoEstado.IsKeyDown(Keys.B) && teclaEstadoAnterior.IsKeyUp(Keys.B))
             {
-                FijarAnimacion("atacar", "der");
                 CrearDisparo(listaPoderesAire, "poder_aire", 350);
             }
             if (activarPoderFuego && teclaNuevoEstado.IsKeyDown(Keys.C) && teclaEstadoAnterior.IsKeyUp(Keys.C))
             {
-                FijarAnimacion("atacar", "der");
                 CrearDisparo(listaPoderesFuego, "poder_fuego", 250);
             }
             if (activarPoderNormal && teclaNuevoEstado.IsKeyDown(Keys.Z) && teclaEstadoAnterior.IsKeyUp(Keys.Z))
             {
-                FijarAnimacion("atacar", "der");
                 CrearDisparo(listaPoderesNormal, "poder_normal", 150); 
             }
             if (activarPoderTierra && teclaNuevoEstado.IsKeyDown(Keys.X) && teclaEstadoAnterior.IsKeyUp(Keys.X))
             {
-                FijarAnimacion("atacar", "der");
                 CrearDisparo(listaPoderesTierra, "poder_tierra", 200);
             }
             
@@ -274,6 +272,10 @@ namespace XNAVideoJuego
 
         private void CrearDisparo(List<PoderMago> listaPoderes, string identificador = "poder_normal", int alcanceMaximo = 100)
         {
+            if (sentidoMovimiento)
+                FijarAnimacion("atacar", "der");
+            else
+                FijarAnimacion("atacar", "izq");
             PoderMago poder = new PoderMago(identificador, alcanceMaximo);
             poder.LoadContent(content);
             Vector2 direccionDisparo = new Vector2(1, 0);
