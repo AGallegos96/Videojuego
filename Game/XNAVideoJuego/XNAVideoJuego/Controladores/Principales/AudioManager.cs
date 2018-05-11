@@ -40,23 +40,24 @@ namespace XNAVideoJuego
         /// <summary>
         /// File list of all wav audio files
         /// </summary>
-        private FileInfo[] audioFileList;
+        private FileInfo[] effectFileList;
+        private FileInfo[] soundtrackFileList;
 
         /// <summary>
         /// Content folder containing audio files
         /// </summary>
-        private DirectoryInfo audioFolder;
-        
+        private DirectoryInfo effectInfo;
+        private DirectoryInfo soundtrackInfo;
+
         /// <summary>
         /// Collection of all loaded sound effects
         /// </summary>
-        private static Dictionary<string, SoundEffect> soundList;
+        private static Dictionary<string, SoundEffect> effectList;
 
         /// <summary>
         /// Looping song used as the in-game soundtrack
         /// </summary>
-        private static Song soundtrack;
-
+        private static Dictionary<string, Song> soundtrackList;
         #endregion
 
 
@@ -72,18 +73,24 @@ namespace XNAVideoJuego
         {
             try
             {
-                audioFolder = new DirectoryInfo(game.Content.RootDirectory+"/Sonidos");
-                audioFileList = audioFolder.GetFiles();
-                soundList = new Dictionary<string, SoundEffect>();
-
-                for (int i = 0; i < audioFileList.Length; i++)
+                effectInfo = new DirectoryInfo(game.Content.RootDirectory+"/Sonidos");
+                soundtrackInfo = new DirectoryInfo(game.Content.RootDirectory + "/Sonidos/Soundtrack");
+                effectFileList = effectInfo.GetFiles();
+                soundtrackFileList = soundtrackInfo.GetFiles();
+                effectList = new Dictionary<string, SoundEffect>();
+                soundtrackList = new Dictionary<string, Song>();
+                for (int i = 0; i < effectFileList.Length; i++)
                 {
-                    string soundName = Path.GetFileNameWithoutExtension(audioFileList[i].Name);
-                    soundList[soundName] = game.Content.Load<SoundEffect>("Sonidos/"+ soundName);
-                    soundList[soundName].Name = soundName;
+                    string effectName = Path.GetFileNameWithoutExtension(effectFileList[i].Name);
+                    effectList[effectName] = game.Content.Load<SoundEffect>("Sonidos/"+ effectName);
+                    effectList[effectName].Name = effectName;
                 }
-
-                soundtrack = game.Content.Load<Song>("Sonidos/Soundtrack/Soundtrack");
+                for (int i = 0; i < soundtrackFileList.Length; i++)
+                {
+                    string songName = Path.GetFileNameWithoutExtension(soundtrackFileList[i].Name);
+                    soundtrackList[songName] = game.Content.Load<Song>("Sonidos/Soundtrack/" + songName);
+                }
+                Console.WriteLine(soundtrackFileList.Length.ToString());
             }
             catch (NoAudioHardwareException)
             {
@@ -100,15 +107,18 @@ namespace XNAVideoJuego
             game.Components.Add(audioManager);
         }
 
-        public static void PlaySoundTrack()
+        public static void PlaySoundtrack(string songName = "Soundtrack", bool looped = false)
         {
-            if (soundtrack == null)
+            if (audioManager == null || soundtrackList == null)
                 return;
-
-            MediaPlayer.Play(soundtrack);
+            if (soundtrackList.ContainsKey(songName))
+            {
+                MediaPlayer.IsRepeating = looped;
+                MediaPlayer.Play(soundtrackList[songName]);
+            }
         }
 
-        public static void PaUseSoundTrack()
+        public static void PauseSoundTrack()
         {
             if (MediaPlayer.State == MediaState.Playing)
                 MediaPlayer.Pause();
@@ -137,12 +147,12 @@ namespace XNAVideoJuego
         /// <param name="soundName">The name of the sound to play.</param>
         public static void PlaySoundEffect(string soundName)
         {
-            if (audioManager == null || soundList == null)
+            if (audioManager == null || effectList == null)
                 return;
 
-            if (soundList.ContainsKey(soundName))
+            if (effectList.ContainsKey(soundName))
             {
-                soundList[soundName].Play();
+                effectList[soundName].Play();
             }
         }
 
@@ -155,14 +165,14 @@ namespace XNAVideoJuego
         public static void PlaySoundEffect(string soundName, bool looped, out SoundEffectInstance instance)
         {
             instance = null;
-            if (audioManager == null || soundList == null)
+            if (audioManager == null || effectList == null)
                 return;
 
-            if (soundList.ContainsKey(soundName))
+            if (effectList.ContainsKey(soundName))
             {
                 try
                 {
-                    instance = soundList[soundName].CreateInstance();
+                    instance = effectList[soundName].CreateInstance();
                     if (instance != null)
                     {
                         instance.IsLooped = looped;

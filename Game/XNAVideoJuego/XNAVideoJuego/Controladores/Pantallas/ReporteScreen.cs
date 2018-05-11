@@ -33,7 +33,6 @@ namespace XNAVideoJuego
 
         public override void Initialize()
         {
-            AudioManager.StopSoundTrack();
             position = Vector2.Zero;
             movement = 0f;
             posicionFuente = new Vector2(215,120);

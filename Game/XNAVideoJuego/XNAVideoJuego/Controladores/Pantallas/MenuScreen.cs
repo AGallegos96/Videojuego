@@ -43,7 +43,7 @@ namespace XNAVideoJuego
 
         public override void Initialize()
         {
-            AudioManager.PlaySoundTrack();
+            AudioManager.PlaySoundtrack();
             position = Vector2.Zero;
             movement = 0f;
             soundtrackPausado = false;
@@ -107,7 +107,10 @@ namespace XNAVideoJuego
             {
                 texturaBtnJugar = content.Load<Texture2D>("Screens/menuScreen/btn_jugar_2");
                 if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                {
+                    AudioManager.StopSoundTrack();
                     ScreenManager.Instance.AddScreen(new CargandoScreen(graphics));
+                }
             }
             if (!rectBtnReportes.Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y)))
                 texturaBtnReportes = content.Load<Texture2D>("Screens/menuScreen/btn_reportes_1");
@@ -115,7 +118,10 @@ namespace XNAVideoJuego
             {
                 texturaBtnReportes = content.Load<Texture2D>("Screens/menuScreen/btn_reportes_2");
                 if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                {
+                    AudioManager.StopSoundTrack();
                     ScreenManager.Instance.AddScreen(new ReporteScreen(graphics));
+                }
             }
             if (!rectBtnSalir.Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y)))
                 texturaBtnSalir = content.Load<Texture2D>("Screens/menuScreen/btn_salir_1");
@@ -123,7 +129,10 @@ namespace XNAVideoJuego
             {
                 texturaBtnSalir = content.Load<Texture2D>("Screens/menuScreen/btn_salir_2");
                 if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+                {
+                    AudioManager.StopSoundTrack();
                     Game1.juegoMain.Exit();
+                }
             }
 
             if (!soundtrackPausado)
@@ -147,7 +156,7 @@ namespace XNAVideoJuego
                 {
                     if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                     {
-                        AudioManager.PlaySoundTrack();
+                        AudioManager.PlaySoundtrack();
                         soundtrackPausado = false;
                     }
                 }
