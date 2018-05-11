@@ -117,7 +117,7 @@ namespace XNAVideoJuego
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //DrawEscenario(spriteBatch);
+            DrawEscenario(spriteBatch);
             mapa.Draw(spriteBatch);
             DrawEnemigos(spriteBatch);
         }
@@ -150,7 +150,7 @@ namespace XNAVideoJuego
 
         public void UpdateEnemigos(GameTime gameTime)
         {
-            int tiempoEspera = new Random().Next(2, 6); //tiempo de esperar para crear un Erizo
+            int tiempoEspera = new Random().Next(2, 8); //tiempo de esperar para crear un Erizo
             tiempoErizosMarinos += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (tiempoErizosMarinos > tiempoEspera)
             {

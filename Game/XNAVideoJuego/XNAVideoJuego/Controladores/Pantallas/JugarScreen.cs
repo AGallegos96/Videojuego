@@ -71,18 +71,18 @@ namespace XNAVideoJuego
             {
                 Game1.juegoMain.NivelActual = 2;
                 escenario2.Update(gameTime);
-            }
+            }*/
             if (!escenario3.NivelCompletado)
             {
                 Game1.juegoMain.NivelActual = 3;
                 escenario3.Update1(gameTime);
             }
-            */
+            /*
             if (!escenario4.NivelCompletado)
             {
                 Game1.juegoMain.NivelActual = 4;
                 escenario4.Update1(gameTime);
-            }
+            }*/
             else
             {
                 //Como el mago pasó a todos los niveles se le agrega a lista de registro de magos.
@@ -101,12 +101,12 @@ namespace XNAVideoJuego
             else if (!escenario2.NivelCompletado)
             {
                 escenario2.Draw(spriteBatch);
-            }
+            }*/
             if (!escenario3.NivelCompletado)
             {
                 escenario3.Draw(spriteBatch);
-            }
-            */
+            }/*
+            
             if (!escenario4.NivelCompletado)
             {
                 escenario4.Draw(spriteBatch);
@@ -114,7 +114,7 @@ namespace XNAVideoJuego
             else
             {
                 return;
-            }
+            }*/
             mago.Draw(spriteBatch);
             #region Dibujo de SpriteFonts
             spriteBatch.DrawString(fuente, (mago.NombreJugador), new Vector2(17 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X), 36), Color.Black);
