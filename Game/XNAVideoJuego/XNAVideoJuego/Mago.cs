@@ -49,7 +49,7 @@ namespace XNAVideoJuego
         public Vida Vida { get { return vida; } }
         public Vector2 Posicion { get { return posicion; } set { posicion = value; } }
         public Vector2 PosicionMuerte { get { return posicionMuerte; } set { posicionMuerte = value; } }
-        public int Puntos { get { return puntos; } set { puntos = value; } }
+        public int Puntos { get { return puntos; } set { puntos = value; AudioManager.PlaySoundEffect("sonido_puntos"); } }
         public int Gemas { get { return gemas; } set { gemas = value; } }
         public bool MagoMuerto { get { return magoMuerto; } }
         public string NombreJugador { get { return nombreJugador; } }
@@ -92,13 +92,13 @@ namespace XNAVideoJuego
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/caminando"), posicion, anchoFrame, 47, 7, 80, Color.White, true));
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/corriendo"), posicion, anchoFrame, 48, 7, 80, Color.White, true));
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/IDLE"), posicion, anchoFrame, 50, 6, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/muerto"), posicion, anchoFrame, 50, 6, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/muerto"), posicion, anchoFrame, 50, 6, 80, Color.White, false));
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Derecha/saltando"), posicion, anchoFrame, 49, 5, 80, Color.White, true));
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/atacando"), posicion, anchoFrame, 49, 5, 80, Color.White, true));
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/caminando"), posicion, anchoFrame, 47, 7, 80, Color.White, true));
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/corriendo"), posicion, anchoFrame, 48, 7, 80, Color.White, true));
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/IDLE"), posicion, anchoFrame, 50, 6, 80, Color.White, true));
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/muerto"), posicion, anchoFrame, 50, 6, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/muerto"), posicion, anchoFrame, 50, 6, 80, Color.White, false));
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Mago/Izquierda/saltando"), posicion, anchoFrame, 49, 5, 80, Color.White, true));
         }
 
@@ -165,6 +165,7 @@ namespace XNAVideoJuego
                     FijarAnimacion("saltar", "izq");
                 posicion.Y -= 5f;
                 velocidad.Y = -10f; //Aquí se configura el salto
+                AudioManager.PlaySoundEffect("mago_salto");
                 salto = true;
             }
         }
@@ -276,6 +277,7 @@ namespace XNAVideoJuego
                 FijarAnimacion("atacar", "der");
             else
                 FijarAnimacion("atacar", "izq");
+            AudioManager.PlaySoundEffect("mago_disparo");
             PoderMago poder = new PoderMago(identificador, alcanceMaximo);
             poder.LoadContent(content);
             Vector2 direccionDisparo = new Vector2(1, 0);
@@ -291,11 +293,13 @@ namespace XNAVideoJuego
                 if (listaAnimaciones[indiceAnimacionActual].DestinationRect.Intersects(rectEnemigo))
                 {
                     posicion.X -= 200; //Retroceder 200 pixeles
+                    AudioManager.PlaySoundEffect("mago_colision");
                     vida.NumeroVidas--;
                 }
             }
             else if (vida.NumeroVidas == 0)
             {
+                AudioManager.PlaySoundEffect("mago_muerto");
                 magoMuerto = true;
             }
         }

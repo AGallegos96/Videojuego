@@ -39,7 +39,6 @@ namespace XNAVideoJuego
             this.graphics = graphics;
             this.mago = mago;
             this.mago.Posicion = new Vector2(0, 394);
-            this.mago.PosicionMuerte = this.mago.Posicion;
             listaEscenariosTexturas = new List<Texture2D>();
             posicionEscenario1 = new Vector2(0, 0);
             posicionEscenario2 = new Vector2();

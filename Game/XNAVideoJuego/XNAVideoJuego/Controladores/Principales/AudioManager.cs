@@ -90,7 +90,6 @@ namespace XNAVideoJuego
                     string songName = Path.GetFileNameWithoutExtension(soundtrackFileList[i].Name);
                     soundtrackList[songName] = game.Content.Load<Song>("Sonidos/Soundtrack/" + songName);
                 }
-                Console.WriteLine(soundtrackFileList.Length.ToString());
             }
             catch (NoAudioHardwareException)
             {

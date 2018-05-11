@@ -80,6 +80,7 @@
     <Compile Include="Escenario3\ErizosMarinos.cs" />
     <Compile Include="Escenario3\Escenario3.cs" />
     <Compile Include="Controladores\Pantallas\IntroScreen.cs" />
+    <Compile Include="EscenarioFinal\EscenarioFinal.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Escenario4\Dragon.cs" />
     <Compile Include="Escenario4\Escenario4.cs" />
@@ -117,9 +118,7 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="EscenarioFinal\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--
