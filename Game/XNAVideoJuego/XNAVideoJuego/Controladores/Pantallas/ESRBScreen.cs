@@ -10,14 +10,14 @@ using Microsoft.Xna.Framework.Media;
 
 namespace XNAVideoJuego
 {
-    public class VideoScreen : GameScreen
+    public class ESRBScreen : GameScreen
     {
         private Video videoIntro;
         private VideoPlayer videoPlayer;
         private Rectangle rectVideo;
         private Texture2D videoTextura;
 
-        public VideoScreen(GraphicsDeviceManager graphics) : base(graphics) { }
+        public ESRBScreen(GraphicsDeviceManager graphics) : base(graphics) { }
 
         public override void Initialize()
         {

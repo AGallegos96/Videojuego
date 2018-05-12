@@ -51,6 +51,7 @@ namespace XNAVideoJuego
             cantidadBolasMagmaEliminadas = 0;
             nivelCompletado = false;
             mapa = new Map();
+            AudioManager.PlaySoundtrack("volcal_erupsion", true);
         }
 
         public void LoadContent(ContentManager Content)
@@ -76,8 +77,6 @@ namespace XNAVideoJuego
                                     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                                     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
                                     {9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9 }}, 40);
-
-
         }
 
         public void UnloadContent()
@@ -178,14 +177,13 @@ namespace XNAVideoJuego
                         {
                             if (mago.ListaPoderesTierra[contPT].RectDestino.Intersects(listaBolasMagma[i].RectDestino))
                             {
-                                mago.Puntos += puntosPorEnemigo;
                                 listaBolasMagma[i].Visible = false;
                             }
                         }
                     }
                     if (listaBolasMagma[i].Posicion.X <= -listaBolasMagma[i].AnchoFrame)
                     {
-                        listaBolasMagma[i].Visible = false;
+                        listaBolasMagma.RemoveAt(i);
                     }
                     if (cantidadBolasMagma<=15)
                     {
@@ -200,8 +198,8 @@ namespace XNAVideoJuego
                 {
                     if (!listaBolasMagma[i].Visible)
                     {
-                        cantidadBolasMagmaEliminadas++;
                         mago.Puntos += puntosPorEnemigo;
+                        cantidadBolasMagmaEliminadas++;
                         listaBolasMagma.RemoveAt(i);
                     }
                 }

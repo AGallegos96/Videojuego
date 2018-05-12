@@ -109,7 +109,7 @@ namespace XNAVideoJuego
         public static void PlaySoundtrack(string songName = "Soundtrack", bool looped = false)
         {
             if (audioManager == null || soundtrackList == null)
-                return;
+            StopSoundTrack();
             if (soundtrackList.ContainsKey(songName))
             {
                 MediaPlayer.IsRepeating = looped;
