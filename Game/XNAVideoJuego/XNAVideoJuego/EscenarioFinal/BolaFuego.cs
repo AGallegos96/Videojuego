@@ -9,48 +9,53 @@ using Microsoft.Xna.Framework.Input;
 
 namespace XNAVideoJuego
 {
-    public class Hacha
+    public class BolaFuego
     {
         private int anchoFrame, altoFrame;
         private Vector2 posicion;
-        private Animacion animacion;
+        private List<Animacion> listaAnimaciones;
+        private int indiceAnimacionActual;
         private bool visible;
         private Vector2 posicionInicial;
         private Vector2 velocidad;
         private Vector2 direccion;
 
         #region Propiedades
-        public Animacion Animacion { get { return animacion; } }
-        public bool Visible { get { return visible; }}
+        public List<Animacion> ListaAnimaciones { get { return listaAnimaciones; } }
+        public int IndiceAnimacionActual { get { return indiceAnimacionActual; }set { indiceAnimacionActual = value; } }
+        public bool Visible { get { return visible; } }
         #endregion
 
-        public Hacha()
+        public BolaFuego()
         {
-            anchoFrame = 25;
-            altoFrame = 25;
+            indiceAnimacionActual = 1;
+            anchoFrame = 27;
+            altoFrame = 30;
             visible = true;
             posicion = Vector2.Zero;
+            listaAnimaciones = new List<Animacion>();
         }
 
         public void LoadContent(ContentManager Content)
         {
             Content = new ContentManager(Content.ServiceProvider, "Content");
-            animacion = new Animacion(Content.Load<Texture2D>("Objetos/01_Valle/hacha"), posicion, anchoFrame, altoFrame, 8, 80, Color.White, true);
+            listaAnimaciones.Add(new Animacion(Content.Load<Texture2D>("Objetos/05_Escenario_Final/Derecha/bola_sombra"), posicion, anchoFrame, altoFrame, 4, 80, Color.White, true));
+            listaAnimaciones.Add(new Animacion(Content.Load<Texture2D>("Objetos/05_Escenario_Final/Izquierda/bola_sombra"), posicion, anchoFrame, altoFrame, 4, 80, Color.White, true));
         }
 
         public void Update(GameTime gameTime)
         {
-            if (Vector2.Distance(posicionInicial, posicion) > 350) //Distancia Máxima de Alcance px
+            if (Vector2.Distance(posicionInicial, posicion) > 400) //Distancia Máxima de Alcance px
                 visible = false;
             if (visible)
                 posicion += direccion * velocidad * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            animacion.Update(gameTime, posicion);
+            listaAnimaciones[indiceAnimacionActual].Update(gameTime, posicion);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             if (visible)
-                animacion.Draw(spriteBatch);
+                listaAnimaciones[indiceAnimacionActual].Draw(spriteBatch);
         }
 
         public void Disparar(Vector2 posicionInicial, Vector2 velocidad, Vector2 direccion)

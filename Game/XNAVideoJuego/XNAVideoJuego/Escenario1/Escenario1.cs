@@ -86,6 +86,7 @@ namespace XNAVideoJuego
 
         public void Update(GameTime gameTime)
         {
+            Game1.juegoMain.IndiceSpriteBatch = 2;
             if (cantidadLenadoresEliminados <= 20)
             {
                 if (!mago.MagoMuerto)
@@ -178,6 +179,10 @@ namespace XNAVideoJuego
                         {
                             listaLenadores[i].Morir(mago.ListaPoderesNormal[contPN].RectDestino);
                         }
+                    }
+                    if (listaLenadores[i].Posicion.X <= -listaLenadores[i].AnchoFrame)
+                    {
+                        listaLenadores.RemoveAt(i);
                     }
                     listaLenadores[i].Update(gameTime);
                 }
