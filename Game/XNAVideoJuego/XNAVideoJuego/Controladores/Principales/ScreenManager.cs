@@ -61,7 +61,7 @@ namespace XNAVideoJuego
 
         public void Initialize(GraphicsDeviceManager graphics)
         {
-            currentScreen = new IntroScreen(graphics);
+            currentScreen = new SplashScreen(graphics);
             currentScreen.Initialize();
             fade = new FadeAnimation();
         }

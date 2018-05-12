@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Animacion.cs" />
     <Compile Include="Camara.cs" />
+    <Compile Include="Controladores\Pantallas\HistoriaScreen.cs" />
     <Compile Include="Controladores\Principales\AudioManager.cs" />
     <Compile Include="Controladores\Pantallas\CargandoScreen.cs" />
     <Compile Include="Controladores\Efectos\FadeAnimation.cs" />
@@ -71,7 +72,7 @@
     <Compile Include="Controladores\Principales\ScreenManager.cs" />
     <Compile Include="Controladores\Pantallas\SplashScreen.cs" />
     <Compile Include="Controladores\Pantallas\MenuScreen.cs" />
-    <Compile Include="Controladores\Pantallas\VideoScreen.cs" />
+    <Compile Include="Controladores\Pantallas\ESRBScreen.cs" />
     <Compile Include="Escenario1\Escenario1.cs" />
     <Compile Include="Escenario1\Hacha.cs" />
     <Compile Include="Escenario1\Lenador.cs" />

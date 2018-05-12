@@ -79,7 +79,7 @@ namespace XNAVideoJuego
             {
                 if (!audioEscenario1)
                 {
-                    AudioManager.PlaySoundtrack("sonido_naturaleza", true);
+                    //AudioManager.PlaySoundtrack("sonido_escenario1", true);
                     audioEscenario1 = true;
                 }
                 Game1.juegoMain.NivelActual = 1;
@@ -92,7 +92,7 @@ namespace XNAVideoJuego
             {
                 if (!audioEscenario2)
                 {
-                    AudioManager.PlaySoundtrack("volcan_erupsion", true);
+                    //AudioManager.PlaySoundtrack("sonido_escenario2", true);
                     audioEscenario2 = true;
                 }
                 Game1.juegoMain.NivelActual = 2;
@@ -118,7 +118,7 @@ namespace XNAVideoJuego
             {
                 if (!audioEscenario4)
                 {
-                    AudioManager.PlaySoundtrack("isla_sonido", true);
+                    //AudioManager.PlaySoundtrack("sonido_escenario4", true);
                     audioEscenario4 = true;
                 }
                 Game1.juegoMain.NivelActual = 4;
@@ -131,7 +131,7 @@ namespace XNAVideoJuego
             {
                 if (!audioEscenarioFinal)
                 {
-                    AudioManager.PlaySoundtrack("bosque_noche_sonido", true);
+                    AudioManager.PlaySoundtrack("sonido_escenarioFinal", true);
                     audioEscenarioFinal = true;
                 }
                 Game1.juegoMain.NivelActual = 5;

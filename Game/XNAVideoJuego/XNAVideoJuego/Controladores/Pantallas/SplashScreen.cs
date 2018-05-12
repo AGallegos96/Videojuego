@@ -49,7 +49,7 @@ namespace XNAVideoJuego
             // Spacebar resets the simulation
             if (keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space))
             {
-                ScreenManager.Instance.AddScreen(new IntroScreen(graphics));
+                ScreenManager.Instance.AddScreen(new HistoriaScreen(graphics));
             }
             particleText.Update();
             lastKeyboardState = keyboardState;
