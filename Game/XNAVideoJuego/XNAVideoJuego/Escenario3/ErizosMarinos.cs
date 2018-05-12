@@ -40,10 +40,10 @@ namespace XNAVideoJuego
             frameActual = 0;
             paso = 0;
             retraso = 80f;
-            posicion = new Vector2((graphics.GraphicsDevice.Viewport.Width + anchoFrame), 370);
+            posicion = new Vector2(840 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X), 370);
             rectOrigen = new Rectangle();
             rectDestino = new Rectangle();
-            alturaMaxima = 380;
+            alturaMaxima = 344;
             bandera = false;
             visible = true;
         }
@@ -84,7 +84,7 @@ namespace XNAVideoJuego
             {
                 case 0:
                     {
-                        posicion.X -= new Random().Next(1, 6);
+                        posicion.X -= new Random().Next(1, 8);
                         posicion.Y = 370;
                     }
                     break;
@@ -102,7 +102,7 @@ namespace XNAVideoJuego
                         {
                             bandera = true;
                         }
-                        if (posicion.Y == 370)
+                        if (posicion.Y == 413)
                         {
                             bandera = false;
                         }
