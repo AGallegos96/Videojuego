@@ -102,7 +102,7 @@ namespace XNAVideoJuego
                         {
                             bandera = true;
                         }
-                        if (posicion.Y == 413)
+                        if (posicion.Y == 370)
                         {
                             bandera = false;
                         }
