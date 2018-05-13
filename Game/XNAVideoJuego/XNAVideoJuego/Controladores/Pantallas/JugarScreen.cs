@@ -173,7 +173,7 @@ namespace XNAVideoJuego
                 if (mago.MagoMuerto)
                     DrawGameWin_GameOver(spriteBatch, false);
             }
-             if (!escenario4.NivelCompletado)
+            else if (!escenario4.NivelCompletado)
             {
                 escenario4.Draw(spriteBatch);
                 if (mago.MagoMuerto)
