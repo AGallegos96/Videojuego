@@ -26,7 +26,7 @@ namespace XNAVideoJuego
         private int cantidadErizosMarinos;
         private float tiempoErizosMarinos;
         private int cantidadErizosMarinosEliminados;
-        private const int puntosPorEnemigo = 35;
+        private const int puntosPorEnemigo = 45;
         private Mago mago;
         private bool nivelCompletado;
         private Map mapa;

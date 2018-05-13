@@ -21,12 +21,11 @@ namespace XNAVideoJuego
         private Vector2 posicionEscenario2;
         private float velocidadTraslado;
         private List<Dragon> listadragon;
-        private List<Fuego> listafuego;
         private int cantidaddragones;
         private int cantidaddragonesEliminados;
         private float tiempofuegos;
         private int cantidadfuego;
-        private const int puntosPorEnemigo = 35;
+        private const int puntosPorEnemigo = 55;
         private Mago mago;
         private bool nivelCompletado;
         private Map mapa;
@@ -110,7 +109,7 @@ namespace XNAVideoJuego
             else
             {
                 mago.Gemas++;
-                mago.ActivarPoderAgua = true;
+                mago.ActivarPoderAire = true;
                 nivelCompletado = true;
                 listadragon.Clear();
             }
@@ -186,6 +185,27 @@ namespace XNAVideoJuego
                         for (int contPN = 0; contPN < mago.ListaPoderesNormal.Count; contPN++)
                         {
                             listadragon[i].Morir(mago.ListaPoderesNormal[contPN].RectDestino);
+                        }
+                    }
+                    if (mago.ListaPoderesTierra.Count > 0)
+                    {
+                        for (int contPT = 0; contPT < mago.ListaPoderesTierra.Count; contPT++)
+                        {
+                            listadragon[i].Morir(mago.ListaPoderesTierra[contPT].RectDestino);
+                        }
+                    }
+                    if (mago.ListaPoderesFuego.Count > 0)
+                    {
+                        for (int contPF = 0; contPF < mago.ListaPoderesFuego.Count; contPF++)
+                        {
+                            listadragon[i].Morir(mago.ListaPoderesFuego[contPF].RectDestino);
+                        }
+                    }
+                    if (mago.ListaPoderesAgua.Count > 0)
+                    {
+                        for (int contPA = 0; contPA < mago.ListaPoderesAgua.Count; contPA++)
+                        {
+                            listadragon[i].Morir(mago.ListaPoderesAgua[contPA].RectDestino);
                         }
                     }
                     if (listadragon[i].Posicion.X <= -listadragon[i].AnchoFrame)
