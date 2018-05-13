@@ -22,6 +22,9 @@ namespace XNAVideoJuego
         private ContentManager content;
         private float tiempofuego;
         private bool visible;
+        private Rectangle rectDestino;
+
+
 
         #region Propiedades
         public Vector2 Posicion { get { return posicion; } set { posicion = value; } }
@@ -29,6 +32,8 @@ namespace XNAVideoJuego
         public List<Fuego> ListaFuegos { get { return listaFuegos; } }
         public bool Dragonv { get { return dragonv; } }
         public int AnchoFrame { get { return anchoFrame; } }
+       
+        public Rectangle RectDestino { get { return rectDestino; } }
         public int IndiceAnimacionActual { get { return indiceAnimacionActual; } }
         public bool Visible { get { return visible; } set { visible = value; } }
         #endregion
@@ -37,10 +42,10 @@ namespace XNAVideoJuego
         {
             listaAnimaciones = new List<Animacion>();
             listaFuegos = new List<Fuego>();
-            indiceAnimacionActual = 1;
+            indiceAnimacionActual = 1 ;
             anchoFrame = 105;
             altoFrame = 102;
-            posicion = Vector2.Zero;
+            posicion = new Vector2(480, 1);
             sentidoMovimiento = false; //True (Hacia la Derecha) | False (Hacia la Izquierda)
             tiempofuego = 0;
             dragonv = false;
@@ -56,18 +61,19 @@ namespace XNAVideoJuego
 
         public void Update(GameTime gameTime)
         {
-            anchoFrame = listaAnimaciones[indiceAnimacionActual].DestinationRect.Width;
+              anchoFrame = listaAnimaciones[indiceAnimacionActual].DestinationRect.Width;
 
-            if (!dragonv)
-            {
+         
                 if (sentidoMovimiento) { FijarAnimacion("correr", "ataque_derecha"); }
-                else { FijarAnimacion("correr", "ataque_izquierda"); }
+                else { FijarAnimacion("correr", "ataque_izquierda");
                 Mover();
-
                 UpdateFuego(gameTime);
-            }
-          
-            listaAnimaciones[indiceAnimacionActual].Update(gameTime, posicion);
+                }
+
+
+                listaAnimaciones[indiceAnimacionActual].Update(gameTime, posicion);
+
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -88,7 +94,7 @@ namespace XNAVideoJuego
                     if (sentidoAccion.Equals("ataque_derecha"))
                         indiceAnimacionActual = 0;
                     else if (sentidoAccion.Equals("ataque_izquierda"))
-                        indiceAnimacionActual = 3;
+                        indiceAnimacionActual = 1;
                     break;
                
                 default:
@@ -110,7 +116,7 @@ namespace XNAVideoJuego
 
         private void UpdateFuego(GameTime gameTime)
         {
-            int tiempoEspera = new Random().Next(3, 9); //Entre 3 y 6 segundos se lanza una nueva hacha
+            int tiempoEspera = new Random().Next(3, 6); //Entre 3 y 6 segundos se lanza una nueva hacha
             tiempofuego += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (tiempofuego > tiempoEspera)
             {
@@ -132,9 +138,9 @@ namespace XNAVideoJuego
 
         private void CrearDisparo()
         {
-            Fuego fuego = new Fuego(graphics);
+            Fuego fuego = new Fuego();
             fuego.LoadContent(content);
-            FijarAnimacion("correr", "izq");
+            FijarAnimacion("correr", "ataque_izquierda");
             Vector2 direccionDisparo = new Vector2(1, 0);
             if (!sentidoMovimiento) { direccionDisparo = new Vector2(-1, 0); }
             fuego.Disparar(posicion + new Vector2(anchoFrame / 2, altoFrame / 4), new Vector2(200, 200), direccionDisparo);

@@ -47,7 +47,6 @@ namespace XNAVideoJuego
             rectEscenario2 = new Rectangle();
             velocidadTraslado = 1f;
             listadragon = new List<Dragon>();
-            listafuego = new List<Fuego>();
             cantidadfuegos = 0;
             tiempofuegos = 0;
             cantidadfuego = 0;
@@ -66,18 +65,18 @@ namespace XNAVideoJuego
             rectEscenario2 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(1).Width, listaEscenariosTexturas.ElementAt(1).Height);
             Tiles.Content = content;
             mapa.Generar(new int[,]{
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3},
-                                   {4,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4}}, 40);
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                   {4,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4}}, 40);
             mago.LoadContent(content);
         }
         public void UnloadContent()
@@ -92,13 +91,14 @@ namespace XNAVideoJuego
             {
                 if (!mago.MagoMuerto)
                 {
+                    UpdateEscenario(gameTime);
+                    UpdateEnemigos(gameTime);
                     foreach (CollisionTiles tile in mapa.CollisionTiles)
                     {
                         mago.Colision(tile.rectangle, mapa.Ancho, mapa.Altura);
                         Game1.juegoMain.Camara.Update(mago.Posicion, mapa.Ancho, mapa.Altura);
                     }
-                    UpdateEscenario(gameTime);
-                    UpdateEnemigos(gameTime);
+                    
                 }
                 else
                 {
@@ -155,6 +155,13 @@ namespace XNAVideoJuego
             }
         }
 
+        private int DeterminarTiempoEsperaLenador()
+        {
+         if (cantidadfuego >= 6 && cantidadfuego < 12)
+                return new Random().Next(4, 7); // entre 4 y 6 segundos
+            return new Random().Next(6, 9); // entre 6 y 8 segundos
+        }
+
         public void UpdateEnemigos(GameTime gameTime)
         {
             int tiempoEspera = new Random().Next(2, 6); //tiempo de esperar para crear un Erizo
@@ -174,23 +181,19 @@ namespace XNAVideoJuego
                     {
                         for (int contPN = 0; contPN < mago.ListaPoderesNormal.Count; contPN++)
                         {
-                            if (mago.ListaPoderesNormal[contPN].RectDestino.Intersects(listafuego[i].RectDestino))
-                            {
+                            
                                 cantidadfuego++;
                                 mago.Puntos += puntosPorEnemigo;
-                                listafuego[i].Visible = false;
-                            }
+                            
                         }
                     }
                     if (mago.ListaPoderesTierra.Count > 0)
                     {
                         for (int contPT = 0; contPT < mago.ListaPoderesTierra.Count; contPT++)
                         {
-                            if (mago.ListaPoderesTierra[contPT].RectDestino.Intersects(listafuego[i].RectDestino))
-                            {
+                            
                                 mago.Puntos += puntosPorEnemigo;
-                                listafuego[i].Visible = false;
-                            }
+                            
                         }
                     }
 
@@ -198,11 +201,9 @@ namespace XNAVideoJuego
                     {
                         for (int contPT = 0; contPT < mago.ListaPoderesFuego.Count; contPT++)
                         {
-                            if (mago.ListaPoderesFuego[contPT].RectDestino.Intersects(listafuego[i].RectDestino))
-                            {
+                            
                                 mago.Puntos += puntosPorEnemigo;
-                                listafuego[i].Visible = false;
-                            }
+                            
                         }
                     }
 
@@ -229,6 +230,7 @@ namespace XNAVideoJuego
         public void CrearEnemigo()
         {
             Dragon dragon = new Dragon();
+            dragon.Posicion = new Vector2((graphics.GraphicsDevice.Viewport.Width + dragon.AnchoFrame), 384);
             dragon.LoadContent(content);
             listadragon.Add(dragon);
         }
