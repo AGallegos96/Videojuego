@@ -22,7 +22,8 @@ namespace XNAVideoJuego
         private float velocidadTraslado;
         private List<Dragon> listadragon;
         private List<Fuego> listafuego;
-        private int cantidadfuegos;
+        private int cantidaddragones;
+        private int cantidaddragonesEliminados;
         private float tiempofuegos;
         private int cantidadfuego;
         private const int puntosPorEnemigo = 35;
@@ -47,11 +48,12 @@ namespace XNAVideoJuego
             rectEscenario2 = new Rectangle();
             velocidadTraslado = 1f;
             listadragon = new List<Dragon>();
-            cantidadfuegos = 0;
+            cantidaddragones = 0;
             tiempofuegos = 0;
             cantidadfuego = 0;
             nivelCompletado = false;
             mapa = new Map();
+            cantidaddragonesEliminados = 0;
         }
 
         public void LoadContent(ContentManager Content)
@@ -69,14 +71,14 @@ namespace XNAVideoJuego
                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                                   {4,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4}}, 40);
+                                   {0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,2,4,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,2,2,4,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,0,0,2,2,2,2,2,0,0,0,0,0,0,0,2,2,2,4,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,2,2,2,2,4,0,0,0,0,0,0},
+                                   {0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,2,2,2,2,2,4,0,0,0,0,0,0},
+                                   {0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,4,0,0,0,0,0,0},
+                                   {4,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4}}, 40);
             mago.LoadContent(content);
         }
         public void UnloadContent()
@@ -157,7 +159,9 @@ namespace XNAVideoJuego
 
         private int DeterminarTiempoEsperaLenador()
         {
-         if (cantidadfuego >= 6 && cantidadfuego < 12)
+            if (cantidaddragonesEliminados >= 12)
+                new Random().Next(2, 4); // entre 2 y 3 segundos
+            else if (cantidaddragones >= 6 && cantidaddragones < 12)
                 return new Random().Next(4, 7); // entre 4 y 6 segundos
             return new Random().Next(6, 9); // entre 6 y 8 segundos
         }
@@ -169,7 +173,7 @@ namespace XNAVideoJuego
             if (tiempofuegos > tiempoEspera)
             {
                 CrearEnemigo();
-                cantidadfuegos++;
+                cantidaddragones++;
                 tiempofuegos = 0;
             }
 
@@ -179,6 +183,10 @@ namespace XNAVideoJuego
                 {
                     if (mago.ListaPoderesNormal.Count > 0)
                     {
+                        for (int contPN = 0; contPN < mago.ListaPoderesNormal.Count; contPN++)
+                        {
+                            listadragon[i].Morir(mago.ListaPoderesNormal[contPN].RectDestino);
+                        }
                     }
                     if (listadragon[i].Posicion.X <= -listadragon[i].AnchoFrame)
                     {
@@ -186,14 +194,23 @@ namespace XNAVideoJuego
                     }
                     listadragon[i].Update(gameTime);
                 }
-                
-            }
+                for (int i = 0; i < listadragon.Count; i++)
+                {
+                    if (listadragon[i].Dragonv)
+                    {
+                        cantidaddragonesEliminados++;
+                        mago.Puntos += puntosPorEnemigo;
+                        listadragon.RemoveAt(i);
+                    }
+                }
+
+                }
         }
 
         public void CrearEnemigo()
         {
             Dragon dragon = new Dragon();
-            dragon.Posicion = new Vector2((graphics.GraphicsDevice.Viewport.Width + dragon.AnchoFrame), 384);
+            dragon.Posicion = new Vector2(640 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X), 370);
             dragon.LoadContent(content);
             listadragon.Add(dragon);
         }

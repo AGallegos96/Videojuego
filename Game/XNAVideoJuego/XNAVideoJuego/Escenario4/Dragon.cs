@@ -63,17 +63,25 @@ namespace XNAVideoJuego
         {
               anchoFrame = listaAnimaciones[indiceAnimacionActual].DestinationRect.Width;
 
-         
+        
+
+            if (!dragonv)
+            {
                 if (sentidoMovimiento) { FijarAnimacion("correr", "ataque_izquierda"); }
-                else { FijarAnimacion("correr", "ataque_derecha");
-                Mover();
-                UpdateFuego(gameTime);
+                else
+                {
+                    FijarAnimacion("correr", "ataque_derecha");
+                    Mover();
+                    UpdateFuego(gameTime);
                 }
 
-
-                listaAnimaciones[indiceAnimacionActual].Update(gameTime, posicion);
-
-
+            }
+            else
+            {
+                if (sentidoMovimiento) { FijarAnimacion("morir", "ataque_izquierda"); }
+                else { FijarAnimacion("morir", "ataque_derecha"); }
+            }
+            listaAnimaciones[indiceAnimacionActual].Update(gameTime, posicion);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -86,6 +94,7 @@ namespace XNAVideoJuego
 
         }
 
+
         private void FijarAnimacion(string nombreAccion = "correr", string sentidoAccion = "ataque_izquierda")
         {
             switch (nombreAccion)
@@ -95,6 +104,13 @@ namespace XNAVideoJuego
                         indiceAnimacionActual = 0;
                     else if (sentidoAccion.Equals("ataque_derecha"))
                         indiceAnimacionActual = 1;
+                    break;
+                case "morir":
+                    if (sentidoAccion.Equals("ataque_derecha"))
+                        indiceAnimacionActual = 0;
+                    else if (sentidoAccion.Equals("ataque_izquierda"))
+                        indiceAnimacionActual = 1;
+                    
                     break;
                
                 default:
@@ -114,7 +130,16 @@ namespace XNAVideoJuego
                 posicion.X -= moverse;
         }
 
-     
+        public void Morir(Rectangle rectPoderMago)
+        {
+            if (!dragonv)
+            {
+                if (listaAnimaciones[indiceAnimacionActual].DestinationRect.Intersects(rectPoderMago))
+                {
+                    dragonv = true;
+                }
+            }
+        }
 
         private void UpdateFuego(GameTime gameTime)
         {
@@ -144,7 +169,7 @@ namespace XNAVideoJuego
             fuego.LoadContent(content);
             FijarAnimacion("correr", "ataque_derecha");
             Vector2 direccionDisparo = new Vector2(0, 1);
-            fuego.Disparar(posicion + new Vector2(anchoFrame / 2, altoFrame / 4), new Vector2(200, 200), direccionDisparo);
+            fuego.Disparar(posicion + new Vector2(anchoFrame/12, altoFrame / 4), new Vector2(200, 200), direccionDisparo);
             listaFuegos.Add(fuego);
         }
 

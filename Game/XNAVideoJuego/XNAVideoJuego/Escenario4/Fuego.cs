@@ -30,7 +30,7 @@ namespace XNAVideoJuego
                 anchoFrame = 32;
                 altoFrame = 39;
                 visible = true;
-                posicion = Vector2.Zero;
+                posicion = new Vector2(840 + ((int)-Game1.juegoMain.Camara.Transformacion.Translation.X), 370);
             bandera = false;
             }
 
