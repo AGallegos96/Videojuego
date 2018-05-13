@@ -179,51 +179,14 @@ namespace XNAVideoJuego
                 {
                     if (mago.ListaPoderesNormal.Count > 0)
                     {
-                        for (int contPN = 0; contPN < mago.ListaPoderesNormal.Count; contPN++)
-                        {
-                            
-                                cantidadfuego++;
-                                mago.Puntos += puntosPorEnemigo;
-                            
-                        }
                     }
-                    if (mago.ListaPoderesTierra.Count > 0)
-                    {
-                        for (int contPT = 0; contPT < mago.ListaPoderesTierra.Count; contPT++)
-                        {
-                            
-                                mago.Puntos += puntosPorEnemigo;
-                            
-                        }
-                    }
-
-                    if (mago.ListaPoderesFuego.Count > 0)
-                    {
-                        for (int contPT = 0; contPT < mago.ListaPoderesFuego.Count; contPT++)
-                        {
-                            
-                                mago.Puntos += puntosPorEnemigo;
-                            
-                        }
-                    }
-
                     if (listadragon[i].Posicion.X <= -listadragon[i].AnchoFrame)
-                    {
-                        listadragon[i].Visible = false;
-                    }
-                    if (cantidadfuegos <= 15)
-                    {
-                        listadragon[i].Update(gameTime);
-                    }
-                   
-                }
-                for (int i = 0; i < listadragon.Count; i++)
-                {
-                    if (!listadragon[i].Visible)
                     {
                         listadragon.RemoveAt(i);
                     }
+                    listadragon[i].Update(gameTime);
                 }
+                
             }
         }
 

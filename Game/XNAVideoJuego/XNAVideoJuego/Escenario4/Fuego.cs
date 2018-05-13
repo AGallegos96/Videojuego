@@ -16,10 +16,10 @@ namespace XNAVideoJuego
             private Vector2 posicion;
             private Animacion animacion;
             private bool visible;
+            private bool bandera;
             private Vector2 posicionInicial;
             private Vector2 velocidad;
             private Vector2 direccion;
-        private Rectangle rectDestino;
   #region Propiedades
         public Animacion Animacion { get { return animacion; } }
             public bool Visible { get { return visible; } }
@@ -31,6 +31,7 @@ namespace XNAVideoJuego
                 altoFrame = 39;
                 visible = true;
                 posicion = Vector2.Zero;
+            bandera = false;
             }
 
             public void LoadContent(ContentManager Content)
@@ -41,7 +42,7 @@ namespace XNAVideoJuego
 
             public void Update(GameTime gameTime)
             {
-                if (Vector2.Distance(posicionInicial, posicion) > 350) //Distancia Máxima de Alcance px
+                if (Vector2.Distance(posicionInicial, posicion) > 420) //Distancia Máxima de Alcance px
                     visible = false;
                 if (visible)
                     posicion += direccion * velocidad * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -59,9 +60,11 @@ namespace XNAVideoJuego
                 posicion = posicionInicial;
                 this.posicionInicial = posicionInicial;
                 this.velocidad = velocidad;
-                this.direccion = direccion;
-            }
+            this.direccion = direccion;
         }
+       
+        
+    }
 
 
 }

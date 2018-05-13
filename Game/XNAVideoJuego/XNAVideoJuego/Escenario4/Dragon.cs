@@ -45,7 +45,7 @@ namespace XNAVideoJuego
             indiceAnimacionActual = 1 ;
             anchoFrame = 105;
             altoFrame = 102;
-            posicion = new Vector2(480, 1);
+            posicion = Vector2.Zero;
             sentidoMovimiento = false; //True (Hacia la Derecha) | False (Hacia la Izquierda)
             tiempofuego = 0;
             dragonv = false;
@@ -55,17 +55,17 @@ namespace XNAVideoJuego
         {
             content = Content;
             content = new ContentManager(content.ServiceProvider, "Content");
-            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Dragón/ataque_derecha"), posicion, 105, altoFrame, 4, 80, Color.White, true));
             listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Dragón/ataque_izquierda"), posicion, 105, altoFrame, 4, 80, Color.White, true));
-    }
+            listaAnimaciones.Add(new Animacion(content.Load<Texture2D>("Personajes/Dragón/ataque_derecha"), posicion, 105, altoFrame, 4, 80, Color.White, true));
+     }
 
         public void Update(GameTime gameTime)
         {
               anchoFrame = listaAnimaciones[indiceAnimacionActual].DestinationRect.Width;
 
          
-                if (sentidoMovimiento) { FijarAnimacion("correr", "ataque_derecha"); }
-                else { FijarAnimacion("correr", "ataque_izquierda");
+                if (sentidoMovimiento) { FijarAnimacion("correr", "ataque_izquierda"); }
+                else { FijarAnimacion("correr", "ataque_derecha");
                 Mover();
                 UpdateFuego(gameTime);
                 }
@@ -91,9 +91,9 @@ namespace XNAVideoJuego
             switch (nombreAccion)
             {
                 case "correr":
-                    if (sentidoAccion.Equals("ataque_derecha"))
+                    if (sentidoAccion.Equals("ataque_izquierda"))
                         indiceAnimacionActual = 0;
-                    else if (sentidoAccion.Equals("ataque_izquierda"))
+                    else if (sentidoAccion.Equals("ataque_derecha"))
                         indiceAnimacionActual = 1;
                     break;
                
@@ -106,8 +106,10 @@ namespace XNAVideoJuego
         private void Mover()
         {
             int moverse = 2;
+            posicion.Y = -30;
             if (sentidoMovimiento)
                 posicion.X += moverse;
+               
             else
                 posicion.X -= moverse;
         }
@@ -116,7 +118,7 @@ namespace XNAVideoJuego
 
         private void UpdateFuego(GameTime gameTime)
         {
-            int tiempoEspera = new Random().Next(3, 6); //Entre 3 y 6 segundos se lanza una nueva hacha
+            int tiempoEspera = new Random().Next(2, 6); //Entre 3 y 6 segundos se lanza una nueva 
             tiempofuego += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (tiempofuego > tiempoEspera)
             {
@@ -140,9 +142,8 @@ namespace XNAVideoJuego
         {
             Fuego fuego = new Fuego();
             fuego.LoadContent(content);
-            FijarAnimacion("correr", "ataque_izquierda");
-            Vector2 direccionDisparo = new Vector2(1, 0);
-            if (!sentidoMovimiento) { direccionDisparo = new Vector2(-1, 0); }
+            FijarAnimacion("correr", "ataque_derecha");
+            Vector2 direccionDisparo = new Vector2(0, 1);
             fuego.Disparar(posicion + new Vector2(anchoFrame / 2, altoFrame / 4), new Vector2(200, 200), direccionDisparo);
             listaFuegos.Add(fuego);
         }
