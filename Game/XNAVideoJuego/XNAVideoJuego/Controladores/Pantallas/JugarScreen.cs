@@ -78,7 +78,7 @@ namespace XNAVideoJuego
                 tiempoTranscurrido = 0;
                 Game1.juegoMain.TiempoEnJuego++;
             }
-            if (!escenario1.NivelCompletado)
+            /*if (!escenario1.NivelCompletado)
             {
                 if (!audioEscenario1)
                 {
@@ -104,7 +104,7 @@ namespace XNAVideoJuego
                 else
                     UpdateGameWin_GameOver(gameTime, false);
             }
-            else if (!escenario3.NivelCompletado)
+            else*/ if (!escenario3.NivelCompletado)
             {
                 if (!audioEscenario3)
                 {
@@ -155,7 +155,7 @@ namespace XNAVideoJuego
         public override void Draw(SpriteBatch spriteBatch)
         {
             graphics.GraphicsDevice.Clear(Color.White);
-           if (!escenario1.NivelCompletado)
+         /* if (!escenario1.NivelCompletado)
             {
                 escenario1.Draw(spriteBatch);
                 if (mago.MagoMuerto)
@@ -167,7 +167,7 @@ namespace XNAVideoJuego
                 if (mago.MagoMuerto)
                     DrawGameWin_GameOver(spriteBatch, false);
             }
-            else if (!escenario3.NivelCompletado)
+            else*/ if (!escenario3.NivelCompletado)
             {
                 escenario3.Draw(spriteBatch);
                 if (mago.MagoMuerto)
