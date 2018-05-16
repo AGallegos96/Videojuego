@@ -121,13 +121,13 @@ namespace XNAVideoJuego
 
         private void Mover()
         {
-            int moverse = 2;
-            posicion.Y = -30;
+            Vector2 velocidadmovimiento = new Vector2(1f,0);
+            posicion.Y = 50;
             if (sentidoMovimiento)
-                posicion.X += moverse;
+                posicion.X += velocidadmovimiento.X;
                
             else
-                posicion.X -= moverse;
+                posicion.X -= velocidadmovimiento.X;
         }
 
         public void Morir(Rectangle rectPoderMago)
