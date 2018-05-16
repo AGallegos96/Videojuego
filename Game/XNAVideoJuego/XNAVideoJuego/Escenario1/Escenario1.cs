@@ -87,7 +87,7 @@ namespace XNAVideoJuego
         public void Update(GameTime gameTime)
         {
             Game1.juegoMain.IndiceSpriteBatch = 2;
-            if (cantidadLenadoresEliminados <= 20)
+            if (cantidadLenadoresEliminados <= 5)
             {
                 if (!mago.MagoMuerto)
                 {

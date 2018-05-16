@@ -88,7 +88,7 @@ namespace XNAVideoJuego
         public void Update1(GameTime gameTime)
         {
             Game1.juegoMain.IndiceSpriteBatch = 2;
-            if (cantidadErizosMarinosEliminados <= 30)
+            if (cantidadErizosMarinosEliminados <= 4)
             {
                 if (!mago.MagoMuerto)
                 {
@@ -203,11 +203,11 @@ namespace XNAVideoJuego
                     {
                         listaErizosMarinos[i].Visible = false;
                     }
-                    if (cantidadErizosMarinos <= 10)
+                    if (cantidadErizosMarinos <= 15)
                     {
                         listaErizosMarinos[i].Update(gameTime);
                     }
-                    else if (cantidadErizosMarinos <= 20)
+                    else if (cantidadErizosMarinos <= 25)
                     {
                         listaErizosMarinos[i].Update(gameTime, 1);
                     }
