@@ -82,7 +82,7 @@ namespace XNAVideoJuego
             {
                 if (!audioEscenario1)
                 {
-                    //AudioManager.PlaySoundtrack("sonido_escenario1", true);
+                    AudioManager.PlaySoundtrack("sonido_escenario0", true);
                     audioEscenario1 = true;
                 }
                 Game1.juegoMain.NivelActual = 1;
@@ -95,7 +95,7 @@ namespace XNAVideoJuego
             {
                 if (!audioEscenario2)
                 {
-                    //AudioManager.PlaySoundtrack("sonido_escenario2", true);
+                    AudioManager.PlaySoundtrack("sonido_escenario2", true);
                     audioEscenario2 = true;
                 }
                 Game1.juegoMain.NivelActual = 2;
@@ -121,7 +121,7 @@ namespace XNAVideoJuego
             {
                 if (!audioEscenario4)
                 {
-                    //AudioManager.PlaySoundtrack("sonido_escenario4", true);
+                    AudioManager.PlaySoundtrack("sonido_escenario4", true);
                     audioEscenario4 = true;
                 }
                 Game1.juegoMain.NivelActual = 4;

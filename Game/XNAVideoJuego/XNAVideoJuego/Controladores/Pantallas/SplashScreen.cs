@@ -33,7 +33,7 @@ namespace XNAVideoJuego
             // Load our particle text font.
             font = Content.Load<SpriteFont>("Fuentes/fuenteSplashScreen");
             ParticleTextTexture = Content.Load<Texture2D>("TextParticle");
-
+            AudioManager.PlaySoundtrack("splash_sound");
             var view = graphics.GraphicsDevice.Viewport;
             particleText = new ParticleText(graphics.GraphicsDevice, font, "Abandagi", ParticleTextTexture);
         }
@@ -46,9 +46,9 @@ namespace XNAVideoJuego
         public override void Update(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            // Spacebar resets the simulation
-            if (keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space))
+            if (keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space) || MediaPlayer.State==MediaState.Stopped)
             {
+                AudioManager.StopSoundTrack();
                 ScreenManager.Instance.AddScreen(new HistoriaScreen(graphics));
             }
             particleText.Update();

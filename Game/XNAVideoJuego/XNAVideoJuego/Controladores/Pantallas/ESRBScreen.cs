@@ -16,6 +16,7 @@ namespace XNAVideoJuego
         private VideoPlayer videoPlayer;
         private Rectangle rectVideo;
         private Texture2D videoTextura;
+        private KeyboardState lastKeyboardState;
 
         public ESRBScreen(GraphicsDeviceManager graphics) : base(graphics) { }
 
@@ -39,10 +40,13 @@ namespace XNAVideoJuego
 
         public override void Update(GameTime gameTime)
         {
-            if (videoPlayer.State == MediaState.Stopped)
+            KeyboardState keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space) || videoPlayer.State == MediaState.Stopped)
             {
+                videoPlayer.Stop();
                 ScreenManager.Instance.AddScreen(new SplashScreen(graphics));
             }
+            lastKeyboardState = keyboardState;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

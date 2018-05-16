@@ -579,13 +579,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sonidos\Soundtrack\volcan_erupsion.mp3">
-      <Name>volcan_erupsion</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sonidos\explosion_medium.mp3">
       <Name>explosion_medium</Name>
       <Importer>Mp3Importer</Importer>
@@ -605,27 +598,6 @@
   <ItemGroup>
     <Compile Include="Sonidos\Soundtrack\Soundtrack.mp3">
       <Name>Soundtrack</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sonidos\Soundtrack\playa_sonido.mp3">
-      <Name>playa_sonido</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sonidos\Soundtrack\bosque_noche_sonido.mp3">
-      <Name>bosque_noche_sonido</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sonidos\Soundtrack\isla_sonido.mp3">
-      <Name>isla_sonido</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
@@ -769,6 +741,39 @@
       <Name>introHistoria</Name>
       <Importer>WmvImporter</Importer>
       <Processor>VideoProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sonidos\Soundtrack\sonido_escenario4.mp3">
+      <Name>sonido_escenario4</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sonidos\Soundtrack\sonido_escenario0.mp3">
+      <Name>sonido_escenario0</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+    <Compile Include="Sonidos\Soundtrack\sonido_escenario2.mp3">
+      <Name>sonido_escenario2</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sonidos\Soundtrack\splash_sound.mp3">
+      <Name>splash_sound</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sonidos\Soundtrack\sound_splash.mp3">
+      <Name>sound_splash</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
