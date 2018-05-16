@@ -19,9 +19,12 @@ namespace XNAVideoJuego
         private List<Texture2D> listaEscenariosTexturas;
         private Rectangle rectEscenario1;
         private Rectangle rectEscenario2;
+        private Rectangle rectEscenario3;
+        private Rectangle rectEscenario4;
         private Vector2 posicionEscenario1;
         private Vector2 posicionEscenario2;
-        private float velocidadTraslado;
+        private Vector2 posicionEscenario3;
+        private Vector2 posicionEscenario4;
         private List<ErizosMarinos> listaErizosMarinos;
         private int cantidadErizosMarinos;
         private float tiempoErizosMarinos;
@@ -44,9 +47,10 @@ namespace XNAVideoJuego
             listaEscenariosTexturas = new List<Texture2D>();
             posicionEscenario1 = new Vector2(0, 0);
             posicionEscenario2 = new Vector2();
+            posicionEscenario3 = new Vector2();
+            posicionEscenario4 = new Vector2();
             rectEscenario1 = new Rectangle();
             rectEscenario2 = new Rectangle();
-            velocidadTraslado = 1f;
             listaErizosMarinos = new List<ErizosMarinos>();
             cantidadErizosMarinos = 0;
             tiempoErizosMarinos = 0;
@@ -61,9 +65,15 @@ namespace XNAVideoJuego
             content = new ContentManager(content.ServiceProvider, "Content");
             listaEscenariosTexturas.Add(content.Load<Texture2D>("Escenarios/03_Playa/01"));
             listaEscenariosTexturas.Add(content.Load<Texture2D>("Escenarios/03_Playa/02"));
+            listaEscenariosTexturas.Add(content.Load<Texture2D>("Escenarios/03_Playa/01"));
+            listaEscenariosTexturas.Add(content.Load<Texture2D>("Escenarios/03_Playa/02"));
             posicionEscenario2 = new Vector2(listaEscenariosTexturas.ElementAt(0).Width, 0);
+            posicionEscenario3 = new Vector2(2 * listaEscenariosTexturas.ElementAt(0).Width, 0);
+            posicionEscenario4 = new Vector2(3 * listaEscenariosTexturas.ElementAt(0).Width, 0);
             rectEscenario1 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(0).Width, listaEscenariosTexturas.ElementAt(0).Height);
             rectEscenario2 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(1).Width, listaEscenariosTexturas.ElementAt(1).Height);
+            rectEscenario3 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(2).Width, listaEscenariosTexturas.ElementAt(2).Height);
+            rectEscenario4 = new Rectangle(0, 0, listaEscenariosTexturas.ElementAt(3).Width, listaEscenariosTexturas.ElementAt(3).Height);
             Tiles.Content = content;
             mapa.Generar(new int[,]{
                                    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6},
@@ -85,7 +95,7 @@ namespace XNAVideoJuego
             content.Unload();
         }
 
-        public void Update1(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             Game1.juegoMain.IndiceSpriteBatch = 2;
             if (cantidadErizosMarinosEliminados <= 4)
@@ -97,7 +107,6 @@ namespace XNAVideoJuego
                         mago.Colision(tile.rectangle, mapa.Ancho, mapa.Altura);
                         Game1.juegoMain.Camara.Update(mago.Posicion, mapa.Ancho, mapa.Altura);
                     }
-                    UpdateEscenario(gameTime);
                     UpdateEnemigos(gameTime);
                 }
                 else
@@ -120,21 +129,6 @@ namespace XNAVideoJuego
             DrawEscenario(spriteBatch);
             mapa.Draw(spriteBatch);
             DrawEnemigos(spriteBatch);
-        }
-
-        public void UpdateEscenario(GameTime gameTime)
-        {
-            if (posicionEscenario1.X <= -listaEscenariosTexturas.ElementAt(0).Width)
-            {
-                posicionEscenario1.X = posicionEscenario1.X * -1;
-            }
-            if (posicionEscenario2.X <= -listaEscenariosTexturas.ElementAt(0).Width)
-            {
-                posicionEscenario2.X = posicionEscenario2.X * -1;
-            }
-            posicionEscenario1.X -= velocidadTraslado;
-            posicionEscenario2.X -= velocidadTraslado;
-
         }
 
         private void UpdateMagoVida(GameTime gameTime)
@@ -238,6 +232,8 @@ namespace XNAVideoJuego
 
             spriteBatch.Draw(listaEscenariosTexturas[0], posicionEscenario1, rectEscenario1, Color.White);
             spriteBatch.Draw(listaEscenariosTexturas[1], posicionEscenario2, rectEscenario2, Color.White);
+            spriteBatch.Draw(listaEscenariosTexturas[2], posicionEscenario3, rectEscenario3, Color.White);
+            spriteBatch.Draw(listaEscenariosTexturas[3], posicionEscenario4, rectEscenario4, Color.White);
         }
 
         private void DrawEnemigos(SpriteBatch spriteBatch)
