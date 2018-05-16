@@ -23,7 +23,9 @@ namespace XNAVideoJuego
         private int alturaMaxima;
         private bool bandera;
         private bool visible;
-
+        private Vector2 velocidad;
+        private Vector2 rotacion;
+        private float rotacionerizo;
         #region Propiedades
         public Vector2 Posicion { get { return posicion; } }
         public Rectangle RectDestino { get { return rectDestino; } }
@@ -46,6 +48,8 @@ namespace XNAVideoJuego
             alturaMaxima = 344;
             bandera = false;
             visible = true;
+            velocidad = new Vector2(7f, 0.5f);
+            rotacion = Vector2.Zero;
         }
 
         public void LoadContent(ContentManager Content)
@@ -84,11 +88,32 @@ namespace XNAVideoJuego
             {
                 case 0:
                     {
-                        posicion.X -= new Random().Next(1, 8);
+                        posicion.X -= new Random().Next(2, 8);
                         posicion.Y = 370;
                     }
                     break;
                 case 1:
+                    {
+                        if (bandera == false)
+                        {
+                            posicion.Y -= velocidad.Y;
+                        }
+                        else
+                        {
+                            posicion.Y += velocidad.Y;
+                        }
+                        if (posicion.Y == alturaMaxima)
+                        {
+                            bandera = true;
+                        }
+                        if (posicion.Y == 370)
+                        {
+                            bandera = false;
+                        }
+                        posicion.X -= velocidad.X;
+                    }
+                    break;
+                case 2:
                     {
                         if (bandera == false)
                         {
@@ -106,8 +131,9 @@ namespace XNAVideoJuego
                         {
                             bandera = false;
                         }
-                        posicion.X--;
+                        posicion.X-=velocidad.X;
                     }
+
                     break;
             }
         }
