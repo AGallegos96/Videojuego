@@ -155,7 +155,7 @@ namespace XNAVideoJuego
         public override void Draw(SpriteBatch spriteBatch)
         {
             graphics.GraphicsDevice.Clear(Color.White);
-          if (!escenario1.NivelCompletado)
+            if (!escenario1.NivelCompletado)
             {
                 escenario1.Draw(spriteBatch);
                 if (mago.MagoMuerto)

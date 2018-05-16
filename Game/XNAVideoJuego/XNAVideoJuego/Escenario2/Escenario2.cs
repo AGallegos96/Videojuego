@@ -148,7 +148,7 @@ namespace XNAVideoJuego
 
         public void UpdateEnemigos(GameTime gameTime)
         {
-            int tiempoEspera = new Random().Next(2, 6); //tiempo de esperar para crear una nueva Bola Magma
+            int tiempoEspera = new Random().Next(3, 6); //tiempo de esperar para crear una nueva Bola Magma
             tiempoBolasMagma += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (tiempoBolasMagma > tiempoEspera)
             {
@@ -185,13 +185,17 @@ namespace XNAVideoJuego
                     {
                         listaBolasMagma.RemoveAt(i);
                     }
-                    if (cantidadBolasMagma<=15)
+                    if (cantidadBolasMagma<=5)
                     {
                         listaBolasMagma[i].Update(gameTime, 0);
                     }
-                    else
+                    else if(cantidadBolasMagma > 5 && cantidadBolasMagma<11)
                     {
                         listaBolasMagma[i].Update(gameTime, 1);
+                    }
+                    else
+                    {
+                        listaBolasMagma[i].Update(gameTime, 2);
                     }
                 }
                 for (int i = 0; i < listaBolasMagma.Count; i++)

@@ -23,6 +23,11 @@ namespace XNAVideoJuego
         private int alturaMaxima;
         private bool bandera;
         private bool visible;
+        private float time; //use gameTime.TotalGameTime.TotalSeconds and update it every frame
+        private float speed = MathHelper.PiOver2; // in radians per second, this is 1/4 of a circle per second atm
+        private float radius = 100.0f;
+        private Vector2 origin = new Vector2(400,310); // change this if you want your circle's origin elsewhere
+
 
         #region Propiedades
         public Vector2 Posicion { get { return posicion; } }
@@ -56,6 +61,7 @@ namespace XNAVideoJuego
 
         public void Update(GameTime gameTime, int idMovimiento = 0)
         {
+            time = (float)gameTime.TotalGameTime.TotalSeconds;
             paso += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             if (paso > retraso)
             {
@@ -84,7 +90,7 @@ namespace XNAVideoJuego
             {
                 case 0:
                     {
-                        posicion.X -= new Random().Next(1, 6);
+                        posicion.X -= new Random().Next(4, 6);
                         posicion.Y = 385;
                     }
                     break;
@@ -106,7 +112,13 @@ namespace XNAVideoJuego
                         {
                             bandera = false;
                         }
-                        posicion.X--;
+                        posicion.X -= new Random().Next(3, 5);
+                    }
+                    break;
+                case 2:
+                    {
+                        posicion.X = (float)(Math.Cos(time * speed) * radius + origin.X);
+                        posicion.Y = (float)(Math.Sin(time * speed) * radius + origin.Y);
                     }
                     break;
             }
